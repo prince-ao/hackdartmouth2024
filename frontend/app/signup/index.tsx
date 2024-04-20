@@ -51,9 +51,6 @@ export default function SignUp() {
     if (validateForm()) {
       setIsLoading(true);
       try {
-        // Perform sign-up logic, possibly using an API call
-        // Example: await signUpApi(form.email, form.password);
-
         Alert.alert("Success", "Your account has been created!");
       } catch (error) {
         Alert.alert("Error", "Failed to create account");
@@ -167,6 +164,10 @@ export default function SignUp() {
 const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
+    position: "absolute",
+    width: "100%",
+    height: "110%",
+    objectFit: "cover",
   },
   flexContainer: {
     flex: 1,
