@@ -128,7 +128,7 @@ export default function Index() {
         source={require("../assets/images/p-4.jpg")}
       />
       <View style={styles.container}>
-        <Text style={styles.title}>Welcome to Snapchat</Text>
+        <Text style={styles.title}>Welcome to TimeFrame</Text>
         <View style={styles.buttonContainer}>
           <Link href="/login/" asChild replace>
             <AnimatedTouchableOpacity

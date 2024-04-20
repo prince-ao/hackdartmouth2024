@@ -1,167 +1,255 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   StyleSheet,
   SafeAreaView,
   View,
+  Image,
   Text,
   TouchableOpacity,
   TextInput,
-  ImageBackground,
-} from "react-native";
-
+  ActivityIndicator,
+  Alert,
+} from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { ImageBackground } from 'react-native';
 export default function Example() {
   const [form, setForm] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
+  const [errors, setErrors] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  const backgroundImage = require('../../assets/images/background-2.jpg');
+
+  const validateForm = () => {
+    let valid = true;
+    let newErrors = {};
+
+    if (!form.email || !/\S+@\S+\.\S+/.test(form.email)) {
+      newErrors.email = 'Please enter a valid email address';
+      valid = false;
+    }
+
+    if (!form.password) {
+      newErrors.password = 'Password cannot be empty';
+      valid = false;
+    }
+
+    setErrors(newErrors);
+    return valid;
+  };
+
+  const handleSignIn = async () => {
+    if (validateForm()) {
+      setIsLoading(true);
+      try {
+        // Perform sign-in logic, possibly using an API call
+        // Example: await signInApi(form.email, form.password);
+
+        Alert.alert('Success', 'You are logged in!');
+      } catch (error) {
+        Alert.alert('Error', 'Failed to sign in');
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  };
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
-      <ImageBackground
-        source={require("../../assets/images/background-2.jpg")}
-        style={styles.background}
-        resizeMode="cover"
-      >
-        <View style={styles.container}>
-          <View style={styles.header}>
-            <Text style={styles.title}>Welcome back!</Text>
-
-            <Text style={styles.subtitle}>Sign in to your account</Text>
-          </View>
-
-          <View style={styles.form}>
-            <View style={styles.input}>
-              <Text style={styles.inputLabel}>Email address</Text>
-
-              <TextInput
-                autoCapitalize="none"
-                autoCorrect={false}
-                keyboardType="email-address"
-                onChangeText={(email) => setForm({ ...form, email })}
-                placeholder="john@example.com"
-                placeholderTextColor="#6b7280"
-                style={styles.inputControl}
-                value={form.email}
+    <ImageBackground 
+      source={backgroundImage} 
+      style={styles.backgroundImage}
+      resizeMode="cover"
+    >
+      <SafeAreaView style={styles.flexContainer}>
+        <KeyboardAwareScrollView style={styles.scrollView}>
+          <View style={styles.container}>
+            {/* Header Section */}
+            <View style={styles.header}>
+              <Image
+                alt="App Logo"
+                resizeMode="contain"
+                style={styles.headerImg}
+                source={require('../../assets/images/app_icon.png')}
               />
+
+              <Text style={styles.title}>
+                Sign in to <Text style={{ color: '#3C8690' }}>TimeFrame</Text>
+              </Text>
+
+              <Text style={styles.subtitle}>
+                Get access to your portfolio and more
+              </Text>
             </View>
 
-            <View style={styles.input}>
-              <Text style={styles.inputLabel}>Password</Text>
+            {/* Form Section */}
+            <View style={styles.form}>
+              {/* Email Input */}
+              <View style={styles.input}>
+                <Text style={styles.inputLabel}>Email address</Text>
+                <TextInput
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  keyboardType="email-address"
+                  onChangeText={email => setForm({ ...form, email })}
+                  placeholder="john@example.com"
+                  placeholderTextColor="#6b7280"
+                  style={styles.inputControl}
+                  value={form.email}
+                />
+                {errors.email && <Text style={styles.errorText}>{errors.email}</Text>}
+              </View>
 
-              <TextInput
-                autoCorrect={false}
-                onChangeText={(password) => setForm({ ...form, password })}
-                placeholder="********"
-                placeholderTextColor="#6b7280"
-                style={styles.inputControl}
-                secureTextEntry={true}
-                value={form.password}
-              />
+              {/* Password Input */}
+              <View style={styles.input}>
+                <Text style={styles.inputLabel}>Password</Text>
+                <TextInput
+                  autoCorrect={false}
+                  onChangeText={password => setForm({ ...form, password })}
+                  placeholder="********"
+                  placeholderTextColor="#6b7280"
+                  style={styles.inputControl}
+                  secureTextEntry={true}
+                  value={form.password}
+                />
+                {errors.password && <Text style={styles.errorText}>{errors.password}</Text>}
+              </View>
+
+              {/* Sign In Button */}
+              <View style={styles.formAction}>
+                {isLoading ? (
+                  <ActivityIndicator size="large" color="#075eec" />
+                ) : (
+                  <TouchableOpacity onPress={handleSignIn}>
+                    <View style={styles.btn}>
+                      <Text style={styles.btnText}>Sign in</Text>
+                    </View>
+                  </TouchableOpacity>
+                )}
+              </View>
+
+              {/* Forgot Password Link */}
+              <Text style={styles.formLink}>Forgot password?</Text>
             </View>
 
-            <View style={styles.formAction}>
-              <TouchableOpacity
-                onPress={() => {
-                  // handle onPress
-                }}
-              >
-                <View style={styles.btn}>
-                  <Text style={styles.btnText}>Sign in</Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-
+            {/* Sign Up Link */}
             <TouchableOpacity
               onPress={() => {
-                // handle link
+                // handle link to sign up
               }}
+              style={{ marginTop: 'auto' }}
             >
               <Text style={styles.formFooter}>
-                Don't have an account?{" "}
-                <Text style={{ textDecorationLine: "underline" }}>Sign up</Text>
+                Don't have an account?{' '}
+                <Text style={{ textDecorationLine: 'underline' }}>Sign up</Text>
               </Text>
             </TouchableOpacity>
           </View>
-        </View>
-      </ImageBackground>
-    </SafeAreaView>
+        </KeyboardAwareScrollView>
+      </SafeAreaView>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+  },
   container: {
-    padding: 24,
+    paddingVertical: 24,
+    paddingHorizontal: 0,
     flexGrow: 1,
     flexShrink: 1,
     flexBasis: 0,
   },
-  header: {
-    marginVertical: 36,
-  },
-  background: {
-    flex: 1,
-    justifyContent: "center",
-  },
   title: {
-    fontSize: 32,
-    fontWeight: "bold",
-    color: "#1d1d1d",
+    fontSize: 31,
+    fontWeight: '700',
+    color: '#2C3E50',
     marginBottom: 6,
-    textAlign: "center",
   },
   subtitle: {
     fontSize: 15,
-    fontWeight: "500",
-    color: "#929292",
-    textAlign: "center",
+    fontWeight: '500',
+    color: '#50372D',
   },
-  /** Form */
+  header: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 36,
+  },
+  headerImg: {
+    width: 80,
+    height: 80,
+    alignSelf: 'center',
+    marginBottom: 36,
+  },
   form: {
     marginBottom: 24,
+    paddingHorizontal: 24,
+    flexGrow: 1,
+    flexShrink: 1,
+    flexBasis: 0,
   },
   formAction: {
-    marginVertical: 24,
+    marginTop: 4,
+    marginBottom: 16,
+  },
+  formLink: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#3C8690',
+    textAlign: 'center',
   },
   formFooter: {
     fontSize: 15,
-    fontWeight: "500",
-    color: "#222",
-    textAlign: "center",
+    fontWeight: '600',
+    color: '#222',
+    textAlign: 'center',
+    letterSpacing: 0.15,
   },
-  /** Input */
   input: {
     marginBottom: 16,
   },
   inputLabel: {
     fontSize: 17,
-    fontWeight: "600",
-    color: "#222",
+    fontWeight: '600',
+    color: '#222',
     marginBottom: 8,
   },
   inputControl: {
-    height: 44,
-    backgroundColor: "#f1f5f9",
+    height: 50,
+    backgroundColor: '#fff',
     paddingHorizontal: 16,
     borderRadius: 12,
     fontSize: 15,
-    fontWeight: "500",
-    color: "#222",
-  },
-  /** Button */
-  btn: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 8,
-    paddingVertical: 8,
-    paddingHorizontal: 16,
+    fontWeight: '500',
+    color: '#222',
     borderWidth: 1,
-    backgroundColor: "#007aff",
-    borderColor: "#007aff",
+    borderColor: '#C9D3DB',
+    borderStyle: 'solid',
+  },
+  errorText: {
+    color: 'red',
+    fontSize: 14,
+    marginTop: 4,
+  },
+  btn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 30,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderWidth: 1,
+    backgroundColor: '#3C8690',
+    borderColor: '#2A5E6B',
   },
   btnText: {
-    fontSize: 17,
-    lineHeight: 24,
-    fontWeight: "600",
-    color: "#fff",
+    fontSize: 18,
+    lineHeight: 26,
+    fontWeight: '600',
+    color: '#fff',
   },
 });
