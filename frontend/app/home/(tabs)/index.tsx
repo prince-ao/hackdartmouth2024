@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Text, TouchableOpacity, Alert } from "react-native";
 import { Camera } from "expo-camera";
-
+import Frame from "./components/Frame";
 export default function CameraCP() {
   const [hasPermission, setHasPermission] = useState(false);
   const [countdown, setCountdown] = useState(0);
@@ -42,23 +42,26 @@ export default function CameraCP() {
   let camera: Camera;
 
   return (
-    <Camera
-      style={styles.camera}
-      ref={(ref) => {
-        camera = ref!;
-      }}
-    >
-      <View style={styles.counterContainer}>
-        <Text style={styles.countdownText}>
-          {countdown > 0 ? countdown : ""}
-        </Text>
-        <TouchableOpacity
-          style={styles.dashedSquare}
-          onLongPress={handleLongPress}
-          onPressOut={() => setCountdown(0)}
-        />
-      </View>
-    </Camera>
+    
+    <Frame>
+      <Camera
+        style={styles.camera}
+        ref={(ref) => {
+          camera = ref!;
+        }}
+      >
+        <View style={styles.counterContainer}>
+          <Text style={styles.countdownText}>
+            {countdown > 0 ? countdown : ""}
+          </Text>
+          <TouchableOpacity
+            style={styles.dashedSquare}
+            onLongPress={handleLongPress}
+            onPressOut={() => setCountdown(0)}
+          />
+        </View>
+      </Camera>
+    </Frame>
   );
 }
 
