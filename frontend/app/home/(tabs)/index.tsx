@@ -76,6 +76,7 @@ const styles = StyleSheet.create({
     fontSize: 64,
     color: "white",
     fontWeight: "bold",
+    marginBottom: 20,
   },
   dashedSquare: {
     marginBottom: 50,
