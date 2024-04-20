@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "expo-router";
 import {
   View,
   StyleSheet,
@@ -13,10 +14,23 @@ import {
   Dimensions,
 } from "react-native";
 import { router } from "expo-router";
+
+import Animated, {
+  FadeInLeft,
+  useSharedValue,
+  useAnimatedStyle,
+  withRepeat,
+  withTiming,
+  Easing,
+  withSequence,
+} from "react-native-reanimated";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import axios, { AxiosError } from "axios";
 
 const backgroundImage = require("../../assets/images/background-2.jpg"); // Ensure this path is correct
+
+const AnimatedTouchableOpacity =
+  Animated.createAnimatedComponent(TouchableOpacity);
 
 export default function SignUp() {
   const [form, setForm] = useState({
@@ -141,6 +155,17 @@ export default function SignUp() {
                     </View>
                   </TouchableOpacity>
                 )}
+                <Link href="/login/" asChild replace>
+                  <AnimatedTouchableOpacity
+                    entering={FadeInLeft.duration(500).delay(600)}
+                    style={styles.button}
+                    onPress={() => console.log("Button Pressed")}
+                  >
+                    <Text style={styles.formFooter}>
+                      Already have an account? Login here.
+                    </Text>
+                  </AnimatedTouchableOpacity>
+                </Link>
               </View>
             </View>
           </View>
@@ -189,6 +214,13 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginBottom: 36,
   },
+  formFooter: {
+    fontSize: 15,
+    fontWeight: "600",
+    color: "#222",
+    textAlign: "center",
+    letterSpacing: 0.15,
+  },
   form: {
     marginBottom: 24,
     paddingHorizontal: 24,
@@ -221,6 +253,7 @@ const styles = StyleSheet.create({
     borderColor: "#59788E", // changed to the suggested lighter navy blue
     borderStyle: "solid",
   },
+  button: {},
   errorText: {
     color: "red",
     fontSize: 14,
