@@ -10,6 +10,7 @@ import {
   Alert,
   ImageBackground,
   SafeAreaView,
+  Dimensions,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
@@ -165,8 +166,8 @@ const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
     position: "absolute",
-    width: "100%",
-    height: "110%",
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height,
     objectFit: "cover",
   },
   flexContainer: {
