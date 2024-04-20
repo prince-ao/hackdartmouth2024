@@ -12,52 +12,41 @@ import {
   SafeAreaView,
   Dimensions,
 } from "react-native";
+import { router } from "expo-router";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import axios, { AxiosError } from "axios";
 
 const backgroundImage = require("../../assets/images/background-2.jpg"); // Ensure this path is correct
 
 export default function SignUp() {
   const [form, setForm] = useState({
+    username: "",
     email: "",
     password: "",
-    confirmPassword: "",
   });
   const [errors, setErrors] = useState<any>({});
   const [isLoading, setIsLoading] = useState(false);
 
-  const validateForm = () => {
-    let valid = true;
-    let newErrors: any = {};
-
-    if (!form.email || !/\S+@\S+\.\S+/.test(form.email)) {
-      newErrors.email = "Please enter a valid email address";
-      valid = false;
-    }
-
-    if (!form.password) {
-      newErrors.password = "Password cannot be empty";
-      valid = false;
-    }
-
-    if (form.password !== form.confirmPassword) {
-      newErrors.confirmPassword = "Passwords do not match";
-      valid = false;
-    }
-
-    setErrors(newErrors);
-    return valid;
-  };
-
   const handleSignUp = async () => {
-    if (validateForm()) {
-      setIsLoading(true);
-      try {
-        Alert.alert("Success", "Your account has been created!");
-      } catch (error) {
-        Alert.alert("Error", "Failed to create account");
-      } finally {
-        setIsLoading(false);
-      }
+    setIsLoading(true);
+    try {
+      const { data } = await axios.post("http://172.27.164.160:5000/signup", {
+        email: form.email,
+        username: form.username,
+        password: form.password,
+      });
+      console.log(data);
+      Alert.alert("Success", "Your account has been created!");
+    } catch (error: any) {
+      console.log(error.message);
+      Alert.alert("Error", "Failed to create account");
+    } finally {
+      setForm({
+        username: "",
+        email: "",
+        password: "",
+      });
+      setIsLoading(false);
     }
   };
 
@@ -90,16 +79,16 @@ export default function SignUp() {
             <View style={styles.form}>
               {/* Email Input */}
               <View style={styles.input}>
-                <Text style={styles.inputLabel}>Email address</Text>
+                <Text style={styles.inputLabel}>Username</Text>
                 <TextInput
                   autoCapitalize="none"
                   autoCorrect={false}
                   keyboardType="email-address"
-                  onChangeText={(email) => setForm({ ...form, email })}
-                  placeholder="john@example.com"
+                  onChangeText={(username) => setForm({ ...form, username })}
                   placeholderTextColor="#6b7280"
+                  placeholder="username..."
                   style={styles.inputControl}
-                  value={form.email}
+                  value={form.username}
                 />
                 {errors.email && (
                   <Text style={styles.errorText}>{errors.email}</Text>
@@ -107,6 +96,22 @@ export default function SignUp() {
               </View>
 
               {/* Password Input */}
+              <View style={styles.input}>
+                <Text style={styles.inputLabel}>Email</Text>
+                <TextInput
+                  autoCorrect={false}
+                  onChangeText={(email) => setForm({ ...form, email })}
+                  placeholderTextColor="#6b7280"
+                  placeholder="john@example.com"
+                  style={styles.inputControl}
+                  value={form.email}
+                />
+                {errors.password && (
+                  <Text style={styles.errorText}>{errors.password}</Text>
+                )}
+              </View>
+
+              {/* Confirm Password Input */}
               <View style={styles.input}>
                 <Text style={styles.inputLabel}>Password</Text>
                 <TextInput
@@ -118,25 +123,6 @@ export default function SignUp() {
                   secureTextEntry={true}
                   value={form.password}
                 />
-                {errors.password && (
-                  <Text style={styles.errorText}>{errors.password}</Text>
-                )}
-              </View>
-
-              {/* Confirm Password Input */}
-              <View style={styles.input}>
-                <Text style={styles.inputLabel}>Confirm Password</Text>
-                <TextInput
-                  autoCorrect={false}
-                  onChangeText={(confirmPassword) =>
-                    setForm({ ...form, confirmPassword })
-                  }
-                  placeholder="********"
-                  placeholderTextColor="#6b7280"
-                  style={styles.inputControl}
-                  secureTextEntry={true}
-                  value={form.confirmPassword}
-                />
                 {errors.confirmPassword && (
                   <Text style={styles.errorText}>{errors.confirmPassword}</Text>
                 )}
@@ -147,7 +133,9 @@ export default function SignUp() {
                 {isLoading ? (
                   <ActivityIndicator size="large" color="#075eec" />
                 ) : (
-                  <TouchableOpacity onPress={handleSignUp}>
+                  <TouchableOpacity
+                    onPress={() => router.replace("/home/") /*handleSignUp*/}
+                  >
                     <View style={styles.btn}>
                       <Text style={styles.btnText}>Sign Up</Text>
                     </View>
