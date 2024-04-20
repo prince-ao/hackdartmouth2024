@@ -6,6 +6,10 @@ import {
   ImageBackground,
   TouchableOpacity,
 } from "react-native";
+import Animated, { FadeInLeft } from "react-native-reanimated";
+
+const AnimatedTouchableOpacity =
+  Animated.createAnimatedComponent(TouchableOpacity);
 
 export default function Page() {
   return (
@@ -17,18 +21,20 @@ export default function Page() {
       <View style={styles.container}>
         <Text style={styles.title}>Welcome to Snapchat</Text>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity
+          <AnimatedTouchableOpacity
+            entering={FadeInLeft.duration(500).delay(400)}
             style={styles.button}
             onPress={() => console.log("Button Pressed")}
           >
             <Text style={styles.buttonText}>Log In</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
+          </AnimatedTouchableOpacity>
+          <AnimatedTouchableOpacity
+            entering={FadeInLeft.duration(500).delay(600)}
             style={styles.button}
             onPress={() => console.log("Button Pressed")}
           >
             <Text style={styles.buttonText}>Sign Up</Text>
-          </TouchableOpacity>
+          </AnimatedTouchableOpacity>
         </View>
       </View>
     </ImageBackground>
