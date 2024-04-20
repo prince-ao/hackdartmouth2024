@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   StyleSheet,
   SafeAreaView,
@@ -9,29 +9,29 @@ import {
   TextInput,
   ActivityIndicator,
   Alert,
-} from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { ImageBackground } from 'react-native';
+} from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { ImageBackground } from "react-native";
 export default function Example() {
   const [form, setForm] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<any>({});
   const [isLoading, setIsLoading] = useState(false);
-  const backgroundImage = require('../../assets/images/background-2.jpg');
+  const backgroundImage = require("../../assets/images/background-2.jpg");
 
   const validateForm = () => {
     let valid = true;
-    let newErrors = {};
+    let newErrors: any = {};
 
     if (!form.email || !/\S+@\S+\.\S+/.test(form.email)) {
-      newErrors.email = 'Please enter a valid email address';
+      newErrors.email = "Please enter a valid email address";
       valid = false;
     }
 
     if (!form.password) {
-      newErrors.password = 'Password cannot be empty';
+      newErrors.password = "Password cannot be empty";
       valid = false;
     }
 
@@ -46,22 +46,22 @@ export default function Example() {
         // Perform sign-in logic, possibly using an API call
         // Example: await signInApi(form.email, form.password);
 
-        Alert.alert('Success', 'You are logged in!');
+        Alert.alert("Success", "You are logged in!");
       } catch (error) {
-        Alert.alert('Error', 'Failed to sign in');
+        Alert.alert("Error", "Failed to sign in");
       } finally {
         setIsLoading(false);
       }
     }
   };
   return (
-    <ImageBackground 
-      source={backgroundImage} 
+    <ImageBackground
+      source={backgroundImage}
       style={styles.backgroundImage}
       resizeMode="cover"
     >
-      <SafeAreaView style={styles.flexContainer}>
-        <KeyboardAwareScrollView style={styles.scrollView}>
+      <SafeAreaView style={{} /*styles.flexContainer*/}>
+        <KeyboardAwareScrollView style={{} /*styles.scrollView*/}>
           <View style={styles.container}>
             {/* Header Section */}
             <View style={styles.header}>
@@ -69,11 +69,11 @@ export default function Example() {
                 alt="App Logo"
                 resizeMode="contain"
                 style={styles.headerImg}
-                source={require('../../assets/images/app_icon.png')}
+                source={require("../../assets/images/app_icon.png")}
               />
 
               <Text style={styles.title}>
-                Sign in to <Text style={{ color: '#3C8690' }}>TimeFrame</Text>
+                Sign in to <Text style={{ color: "#3C8690" }}>TimeFrame</Text>
               </Text>
 
               <Text style={styles.subtitle}>
@@ -90,13 +90,15 @@ export default function Example() {
                   autoCapitalize="none"
                   autoCorrect={false}
                   keyboardType="email-address"
-                  onChangeText={email => setForm({ ...form, email })}
+                  onChangeText={(email) => setForm({ ...form, email })}
                   placeholder="john@example.com"
                   placeholderTextColor="#6b7280"
                   style={styles.inputControl}
                   value={form.email}
                 />
-                {errors.email && <Text style={styles.errorText}>{errors.email}</Text>}
+                {errors.email && (
+                  <Text style={styles.errorText}>{errors.email}</Text>
+                )}
               </View>
 
               {/* Password Input */}
@@ -104,14 +106,16 @@ export default function Example() {
                 <Text style={styles.inputLabel}>Password</Text>
                 <TextInput
                   autoCorrect={false}
-                  onChangeText={password => setForm({ ...form, password })}
+                  onChangeText={(password) => setForm({ ...form, password })}
                   placeholder="********"
                   placeholderTextColor="#6b7280"
                   style={styles.inputControl}
                   secureTextEntry={true}
                   value={form.password}
                 />
-                {errors.password && <Text style={styles.errorText}>{errors.password}</Text>}
+                {errors.password && (
+                  <Text style={styles.errorText}>{errors.password}</Text>
+                )}
               </View>
 
               {/* Sign In Button */}
@@ -136,11 +140,11 @@ export default function Example() {
               onPress={() => {
                 // handle link to sign up
               }}
-              style={{ marginTop: 'auto' }}
+              style={{ marginTop: "auto" }}
             >
               <Text style={styles.formFooter}>
-                Don't have an account?{' '}
-                <Text style={{ textDecorationLine: 'underline' }}>Sign up</Text>
+                Don't have an account?{" "}
+                <Text style={{ textDecorationLine: "underline" }}>Sign up</Text>
               </Text>
             </TouchableOpacity>
           </View>
@@ -153,8 +157,8 @@ export default function Example() {
 const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
-    width: '100%',
-    height: '100%',
+    width: "100%",
+    height: "100%",
   },
   container: {
     paddingVertical: 24,
@@ -165,24 +169,24 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 31,
-    fontWeight: '700',
-    color: '#2C3E50',
+    fontWeight: "700",
+    color: "#2C3E50",
     marginBottom: 6,
   },
   subtitle: {
     fontSize: 15,
-    fontWeight: '500',
-    color: '#50372D',
+    fontWeight: "500",
+    color: "#50372D",
   },
   header: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     marginVertical: 36,
   },
   headerImg: {
     width: 80,
     height: 80,
-    alignSelf: 'center',
+    alignSelf: "center",
     marginBottom: 36,
   },
   form: {
@@ -198,15 +202,15 @@ const styles = StyleSheet.create({
   },
   formLink: {
     fontSize: 16,
-    fontWeight: '600',
-    color: '#3C8690',
-    textAlign: 'center',
+    fontWeight: "600",
+    color: "#3C8690",
+    textAlign: "center",
   },
   formFooter: {
     fontSize: 15,
-    fontWeight: '600',
-    color: '#222',
-    textAlign: 'center',
+    fontWeight: "600",
+    color: "#222",
+    textAlign: "center",
     letterSpacing: 0.15,
   },
   input: {
@@ -214,42 +218,42 @@ const styles = StyleSheet.create({
   },
   inputLabel: {
     fontSize: 17,
-    fontWeight: '600',
-    color: '#222',
+    fontWeight: "600",
+    color: "#222",
     marginBottom: 8,
   },
   inputControl: {
     height: 50,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     paddingHorizontal: 16,
     borderRadius: 12,
     fontSize: 15,
-    fontWeight: '500',
-    color: '#222',
+    fontWeight: "500",
+    color: "#222",
     borderWidth: 1,
-    borderColor: '#C9D3DB',
-    borderStyle: 'solid',
+    borderColor: "#C9D3DB",
+    borderStyle: "solid",
   },
   errorText: {
-    color: 'red',
+    color: "red",
     fontSize: 14,
     marginTop: 4,
   },
   btn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 30,
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderWidth: 1,
-    backgroundColor: '#3C8690',
-    borderColor: '#2A5E6B',
+    backgroundColor: "#3C8690",
+    borderColor: "#2A5E6B",
   },
   btnText: {
     fontSize: 18,
     lineHeight: 26,
-    fontWeight: '600',
-    color: '#fff',
+    fontWeight: "600",
+    color: "#fff",
   },
 });

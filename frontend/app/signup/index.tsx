@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   View,
   StyleSheet,
@@ -9,37 +9,37 @@ import {
   ActivityIndicator,
   Alert,
   ImageBackground,
-  SafeAreaView
-} from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+  SafeAreaView,
+} from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-const backgroundImage = require('../../assets/images/background-2.jpg'); // Ensure this path is correct
+const backgroundImage = require("../../assets/images/background-2.jpg"); // Ensure this path is correct
 
 export default function SignUp() {
   const [form, setForm] = useState({
-    email: '',
-    password: '',
-    confirmPassword: '',
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<any>({});
   const [isLoading, setIsLoading] = useState(false);
 
   const validateForm = () => {
     let valid = true;
-    let newErrors = {};
+    let newErrors: any = {};
 
     if (!form.email || !/\S+@\S+\.\S+/.test(form.email)) {
-      newErrors.email = 'Please enter a valid email address';
+      newErrors.email = "Please enter a valid email address";
       valid = false;
     }
 
     if (!form.password) {
-      newErrors.password = 'Password cannot be empty';
+      newErrors.password = "Password cannot be empty";
       valid = false;
     }
 
     if (form.password !== form.confirmPassword) {
-      newErrors.confirmPassword = 'Passwords do not match';
+      newErrors.confirmPassword = "Passwords do not match";
       valid = false;
     }
 
@@ -54,9 +54,9 @@ export default function SignUp() {
         // Perform sign-up logic, possibly using an API call
         // Example: await signUpApi(form.email, form.password);
 
-        Alert.alert('Success', 'Your account has been created!');
+        Alert.alert("Success", "Your account has been created!");
       } catch (error) {
-        Alert.alert('Error', 'Failed to create account');
+        Alert.alert("Error", "Failed to create account");
       } finally {
         setIsLoading(false);
       }
@@ -64,8 +64,8 @@ export default function SignUp() {
   };
 
   return (
-    <ImageBackground 
-      source={backgroundImage} 
+    <ImageBackground
+      source={backgroundImage}
       style={styles.backgroundImage}
       resizeMode="cover"
     >
@@ -78,11 +78,11 @@ export default function SignUp() {
                 alt="App Logo"
                 resizeMode="contain"
                 style={styles.headerImg}
-                source={require('../../assets/images/app_icon.png')} // Make sure this path is correct
+                source={require("../../assets/images/app_icon.png")} // Make sure this path is correct
               />
 
               <Text style={styles.title}>
-                Sign up for <Text style={{ color: '#3C8690' }}>TimeFrame</Text>
+                Sign up for <Text style={{ color: "#3C8690" }}>TimeFrame</Text>
               </Text>
 
               <Text style={styles.subtitle}>Create your account</Text>
@@ -103,7 +103,9 @@ export default function SignUp() {
                   style={styles.inputControl}
                   value={form.email}
                 />
-                {errors.email && <Text style={styles.errorText}>{errors.email}</Text>}
+                {errors.email && (
+                  <Text style={styles.errorText}>{errors.email}</Text>
+                )}
               </View>
 
               {/* Password Input */}
@@ -118,7 +120,9 @@ export default function SignUp() {
                   secureTextEntry={true}
                   value={form.password}
                 />
-                {errors.password && <Text style={styles.errorText}>{errors.password}</Text>}
+                {errors.password && (
+                  <Text style={styles.errorText}>{errors.password}</Text>
+                )}
               </View>
 
               {/* Confirm Password Input */}
@@ -126,14 +130,18 @@ export default function SignUp() {
                 <Text style={styles.inputLabel}>Confirm Password</Text>
                 <TextInput
                   autoCorrect={false}
-                  onChangeText={(confirmPassword) => setForm({ ...form, confirmPassword })}
+                  onChangeText={(confirmPassword) =>
+                    setForm({ ...form, confirmPassword })
+                  }
                   placeholder="********"
                   placeholderTextColor="#6b7280"
                   style={styles.inputControl}
                   secureTextEntry={true}
                   value={form.confirmPassword}
                 />
-                {errors.confirmPassword && <Text style={styles.errorText}>{errors.confirmPassword}</Text>}
+                {errors.confirmPassword && (
+                  <Text style={styles.errorText}>{errors.confirmPassword}</Text>
+                )}
               </View>
 
               {/* Sign Up Button */}
@@ -171,24 +179,24 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 31,
-    fontWeight: '700',
-    color: '#2C3E50', // changed to the suggested navy blue
+    fontWeight: "700",
+    color: "#2C3E50", // changed to the suggested navy blue
     marginBottom: 6,
   },
   subtitle: {
     fontSize: 15,
-    fontWeight: '500',
-    color: '#50372D', // changed to the suggested dark brown
+    fontWeight: "500",
+    color: "#50372D", // changed to the suggested dark brown
   },
   header: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     marginVertical: 36,
   },
   headerImg: {
     width: 80,
     height: 80,
-    alignSelf: 'center',
+    alignSelf: "center",
     marginBottom: 36,
   },
   form: {
@@ -207,41 +215,41 @@ const styles = StyleSheet.create({
   },
   inputLabel: {
     fontSize: 17,
-    fontWeight: '600',
-    color: '#222',
+    fontWeight: "600",
+    color: "#222",
     marginBottom: 8,
   },
   inputControl: {
     height: 50,
-    backgroundColor: '#fff', // changed to the suggested light tan
+    backgroundColor: "#fff", // changed to the suggested light tan
     paddingHorizontal: 16,
     borderRadius: 12,
     fontSize: 15,
-    fontWeight: '500',
-    color: '#222',
+    fontWeight: "500",
+    color: "#222",
     borderWidth: 1,
-    borderColor: '#59788E', // changed to the suggested lighter navy blue
-    borderStyle: 'solid',
+    borderColor: "#59788E", // changed to the suggested lighter navy blue
+    borderStyle: "solid",
   },
   errorText: {
-    color: 'red',
+    color: "red",
     fontSize: 14,
     marginTop: 4,
   },
   btn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 30,
     paddingVertical: 10,
     paddingHorizontal: 20,
-    backgroundColor: '#3C8690', 
-    borderColor: '#2A5E6B', 
+    backgroundColor: "#3C8690",
+    borderColor: "#2A5E6B",
   },
   btnText: {
     fontSize: 18,
-    fontWeight: '600',
-    color: '#fff',
+    fontWeight: "600",
+    color: "#fff",
   },
   // ... (You may have additional styles which should also be here)
 });
