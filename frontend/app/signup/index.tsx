@@ -82,7 +82,7 @@ export default function SignUp() {
               />
 
               <Text style={styles.title}>
-                Sign up for <Text style={{ color: '#075eec' }}>TimeFrame</Text>
+                Sign up for <Text style={{ color: '#3C8690' }}>TimeFrame</Text>
               </Text>
 
               <Text style={styles.subtitle}>Create your account</Text>
@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
   },
   inputControl: {
     height: 50,
-    backgroundColor: '#F3E5AB', // changed to the suggested light tan
+    backgroundColor: '#fff', // changed to the suggested light tan
     paddingHorizontal: 16,
     borderRadius: 12,
     fontSize: 15,
@@ -236,7 +236,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     backgroundColor: '#3C8690', 
-    borderColor: '#2C3E50', // changed to the suggested navy blue
+    borderColor: '#2A5E6B', 
   },
   btnText: {
     fontSize: 18,
