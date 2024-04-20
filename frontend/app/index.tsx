@@ -148,6 +148,15 @@ export default function Index() {
               <Text style={styles.buttonText}>Sign Up</Text>
             </AnimatedTouchableOpacity>
           </Link>
+          <Link href="/home/" asChild replace>
+            <AnimatedTouchableOpacity
+              entering={FadeInLeft.duration(500).delay(600)}
+              style={styles.button}
+              onPress={() => console.log("Button Pressed")}
+            >
+              <Text style={styles.buttonText}>Home</Text>
+            </AnimatedTouchableOpacity>
+          </Link>
         </View>
       </View>
     </ImageBackground>
