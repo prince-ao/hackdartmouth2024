@@ -235,7 +235,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     paddingVertical: 10,
     paddingHorizontal: 20,
-    backgroundColor: '#2C3E50', // changed to the suggested navy blue
+    backgroundColor: '#3C8690', 
     borderColor: '#2C3E50', // changed to the suggested navy blue
   },
   btnText: {

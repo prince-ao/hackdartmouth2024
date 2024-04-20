@@ -73,7 +73,7 @@ export default function Example() {
               />
 
               <Text style={styles.title}>
-                Sign in to <Text style={{ color: '#075eec' }}>TimeFrame</Text>
+                Sign in to <Text style={{ color: '#3C8690' }}>TimeFrame</Text>
               </Text>
 
               <Text style={styles.subtitle}>
@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
   formLink: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#075eec',
+    color: '#3C8690',
     textAlign: 'center',
   },
   formFooter: {
@@ -243,8 +243,8 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderWidth: 1,
-    backgroundColor: '#075eec',
-    borderColor: '#075eec',
+    backgroundColor: '#3C8690',
+    borderColor: '#2A5E6B',
   },
   btnText: {
     fontSize: 18,
