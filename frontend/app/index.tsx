@@ -113,19 +113,19 @@ export default function Index() {
     >
       <AnimatedImage
         style={[styles.image, animatedStyles[0]]}
-        source={require("../assets/images/p-1.jpg")}
+        source={require("../assets/images/p-1.webp")}
       />
       <AnimatedImage
         style={[styles.image, animatedStyles[1]]}
-        source={require("../assets/images/p-2.jpg")}
+        source={require("../assets/images/p-2.webp")}
       />
       <AnimatedImage
         style={[styles.image, animatedStyles[2]]}
-        source={require("../assets/images/p-3.jpg")}
+        source={require("../assets/images/p-3.webp")}
       />
       <AnimatedImage
         style={[styles.image, animatedStyles[3]]}
-        source={require("../assets/images/p-4.jpg")}
+        source={require("../assets/images/p-4.webp")}
       />
       <View style={styles.container}>
         <Text style={styles.title}>Welcome to TimeFrame</Text>
@@ -156,8 +156,8 @@ export default function Index() {
 
 const styles = StyleSheet.create({
   image: {
-    width: 100,
-    height: 100,
+    width: 180,
+    height: 130,
     position: "absolute",
     top: 0,
   },
@@ -192,5 +192,10 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     marginTop: 80,
+    color: "#FFFF",
+    fontWeight: "bold",
+    textShadowColor: 'rgba(0, 0, 0, 1)',
+    textShadowOffset: {width: -1, height: 0},
+    textShadowRadius: 12,
   },
 });
