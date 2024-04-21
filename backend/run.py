@@ -3,6 +3,11 @@ from config import DevConfig
 from db import User, db
 from flask_jwt_extended import create_access_token, JWTManager
 from flask_cors import CORS
+from openai import OpenAI
+from decouple import config
+
+
+client = OpenAI(api_key=config("OPENAI_API_KEY"))
 
 
 app = Flask(__name__)
@@ -41,6 +46,33 @@ def login():
     access_token = create_access_token(identity=user.id)
 
     return access_token
+
+@app.post('/gen-ar')
+def gen_ar():
+    body = request.get_json()
+    base64_image = body['data']
+    location = body['location']
+
+
+    response = client.chat.completions.create(
+        model="gpt-4-turbo",
+        messages=[
+            {
+            "role": "user",
+            "content": [
+                {"type": "text", "text": f"Give me the historical context of this image. It was taken at this location: {location}"},
+                {
+                    "type": "image_url",
+                    "image_url": {
+                        "url": f"data:image/jpeg;base64,{base64_image}"
+                    },
+                },
+            ],
+            }
+        ],
+    )
+
+    return response.choices[0].message.content
 
 
 @app.get('/')

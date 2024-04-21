@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { StyleSheet, View, Text, TouchableOpacity, Alert } from "react-native";
 import { Camera } from "expo-camera";
 
 export default function CameraCP() {
   const [hasPermission, setHasPermission] = useState(false);
-  const [countdown, setCountdown] = useState(0);
+  const [countdown, setCountdown] = useState<number | null>(null);
+  const cameraRef = useRef<Camera>(null);
 
   useEffect(() => {
     requestCameraPermission();
@@ -16,19 +17,78 @@ export default function CameraCP() {
   };
 
   useEffect(() => {
+    let intervalId: any;
+    if (countdown !== null && countdown > 0) {
+      intervalId = setInterval(() => {
+        setCountdown(countdown - 1);
+      }, 1000);
+    } else if (countdown === 0) {
+      takePictureAndSend();
+    }
+
+    return () => clearInterval(intervalId); // Cleanup interval on component unmount or countdown change
+  }, [countdown]);
+
+  /*useEffect(() => {
     let intervalId = null;
     if (countdown > 0 && hasPermission) {
       intervalId = setInterval(() => {
         setCountdown((c) => c - 1);
       }, 1000);
     } else {
+      takePictureAndSend();
       clearInterval(intervalId!);
     }
-    return () => clearInterval(intervalId!);
-  }, [countdown, hasPermission]);
+    return () => {
+      return clearInterval(intervalId!);
+    };
+  }, [countdown, hasPermission]);*/
 
   const handleLongPress = () => {
-    setCountdown(3);
+    if (countdown === null) {
+      setCountdown(3);
+    }
+  };
+
+  const handlePressOut = () => {
+    setCountdown(null);
+  };
+
+  const takePictureAndSend = async () => {
+    if (cameraRef.current) {
+      try {
+        const photo = await cameraRef.current.takePictureAsync({
+          quality: 0.5,
+          base64: true,
+        });
+        console.log("here");
+        sendImageToBackend(photo.base64);
+      } catch (error) {
+        console.error("Error taking picture:", error);
+        Alert.alert("Error", "Failed to take picture.");
+      }
+    }
+  };
+
+  const sendImageToBackend = async (base64Image: any) => {
+    try {
+      /*const response = await fetch("http://34.125.69.153/gen-ai", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          data: base64Image,
+        }),
+      });
+      const responseData = await response.json();*/
+      console.log(base64Image);
+
+      Alert.alert("Upload Success", "Image uploaded successfully!");
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      Alert.alert("Upload Error", "Failed to upload image.");
+    }
   };
 
   if (!hasPermission) {
@@ -39,23 +99,14 @@ export default function CameraCP() {
     );
   }
 
-  let camera: Camera;
-
   return (
-    <Camera
-      style={styles.camera}
-      ref={(ref) => {
-        camera = ref!;
-      }}
-    >
+    <Camera style={styles.camera} ref={cameraRef}>
       <View style={styles.counterContainer}>
-        <Text style={styles.countdownText}>
-          {countdown > 0 ? countdown : ""}
-        </Text>
+        <Text style={styles.countdownText}>{countdown}</Text>
         <TouchableOpacity
           style={styles.dashedSquare}
           onLongPress={handleLongPress}
-          onPressOut={() => setCountdown(0)}
+          onPressOut={handlePressOut}
         />
       </View>
     </Camera>
