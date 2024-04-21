@@ -8,6 +8,10 @@ This project was made for HackDartmouth IX, it is for the Education track, Best 
 
 ## Features
 
+- **AR Experience**: Engage users with an immersive AR experience that overlays historical information on current landmarks.
+- **Cross-Platform**: Support for both iOS and Android devices.
+- **User-Friendly Web Interface**: A Next.js-based website that provides additional information and user engagement.
+- **Scalable Backend**: Python backend designed to efficiently serve both the mobile app and the website.
 - **Augmented Reality**: View historical landmarks and buildings in AR mode, with information about their history and significance.
 - **Interactive Timeline**: Explore the history of a location through an interactive timeline, with photos, videos, and text.
 - **Location-Based Information**: Get information about historical sites based on your current location, with notifications and alerts.
