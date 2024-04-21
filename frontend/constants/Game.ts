@@ -1,0 +1,1 @@
+let points = 5;

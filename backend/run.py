@@ -23,6 +23,9 @@ db.init_app(app)
 JWTManager(app)
 CORS(app)
 
+with app.app_context():
+    db.create_all()
+
 
 @app.post('/signup')
 def signup():
@@ -37,7 +40,7 @@ def signup():
     db.session.add(new_user)
     db.session.commit()
 
-    access_token = create_access_token(identity=new_user.id)
+    access_token = create_access_token(identity=new_user.id, expires_delta=100000)
 
     return access_token
 
@@ -149,6 +152,4 @@ def index():
 
 
 if __name__ == "__main__":
-    with app.app_context():
-        db.create_all()
     app.run()
