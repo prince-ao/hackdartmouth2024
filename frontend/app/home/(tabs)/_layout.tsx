@@ -11,7 +11,6 @@ import { useClientOnlyValue } from "@/components/useClientOnlyValue";
 function TabBarIcon(props: {
   name: React.ComponentProps<typeof FontAwesome>["name"];
   color: string;
-
 }) {
   return <FontAwesome size={24} style={{ marginBottom: -3 }} {...props} />;
 }
@@ -21,33 +20,42 @@ export default function TabLayout() {
 
   return (
     <Tabs
+      initialRouteName="camera"
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
         headerShown: useClientOnlyValue(false, true),
         tabBarStyle: {
           display: "flex",
-        }
+        },
       }}
     >
-
       <Tabs.Screen
         name="home"
         options={{
-          tabBarIcon: ({ color }: { color: string }) => <TabBarIcon name="home" color={color}  />,
+          title: "Home",
+          tabBarIcon: ({ color }: { color: string }) => (
+            <TabBarIcon name="home" color={color} />
+          ),
         }}
       />
 
       <Tabs.Screen
         name="camera"
         options={{
-          tabBarIcon: ({ color }: { color: string }) => <TabBarIcon name="camera" color={color}  />,
+          title: "Camera",
+          tabBarIcon: ({ color }: { color: string }) => (
+            <TabBarIcon name="camera" color={color} />
+          ),
         }}
       />
 
       <Tabs.Screen
         name="settings"
         options={{
-          tabBarIcon: ({ color }: { color: string }) => <TabBarIcon name="cog" color={color}  />,
+          title: "Settings",
+          tabBarIcon: ({ color }: { color: string }) => (
+            <TabBarIcon name="cog" color={color} />
+          ),
         }}
       />
     </Tabs>

@@ -22,9 +22,13 @@ import Animated, {
 } from "react-native-reanimated";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { ImageBackground } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios, { AxiosError } from "axios";
+import { router } from "expo-router";
+
 export default function Example() {
   const [form, setForm] = useState({
-    email: "",
+    username: "",
     password: "",
   });
   const [errors, setErrors] = useState<any>({});
@@ -34,35 +38,32 @@ export default function Example() {
   const AnimatedTouchableOpacity =
     Animated.createAnimatedComponent(TouchableOpacity);
 
-
-  const validateForm = () => {
-    let valid = true;
-    let newErrors: any = {};
-
-    if (!form.email || !/\S+@\S+\.\S+/.test(form.email)) {
-      newErrors.email = "Please enter a valid email address";
-      valid = false;
+  const storeData = async (value: any) => {
+    try {
+      await AsyncStorage.setItem("my-key", value);
+    } catch (e) {
+      console.log(e);
     }
-
-    if (!form.password) {
-      newErrors.password = "Password cannot be empty";
-      valid = false;
-    }
-
-    setErrors(newErrors);
-    return valid;
   };
 
   const handleSignIn = async () => {
-    if (validateForm()) {
-      setIsLoading(true);
-      try {
-        Alert.alert("Success", "You are logged in!");
-      } catch (error) {
-        Alert.alert("Error", "Failed to sign in");
-      } finally {
-        setIsLoading(false);
-      }
+    setIsLoading(true);
+    try {
+      const { data } = await axios.post("http://34.125.69.163/login", {
+        username: form.username,
+        password: form.password,
+      });
+
+      storeData(data);
+      router.replace("/home/(tabs)/camera");
+    } catch (error) {
+      Alert.alert("Error", "Failed to sign in");
+    } finally {
+      setForm({
+        username: "",
+        password: "",
+      });
+      setIsLoading(false);
     }
   };
 
@@ -96,16 +97,15 @@ export default function Example() {
           <View style={styles.form}>
             {/* Email Input */}
             <View style={styles.input}>
-              <Text style={styles.inputLabel}>Email address</Text>
+              <Text style={styles.inputLabel}>Username</Text>
               <TextInput
                 autoCapitalize="none"
                 autoCorrect={false}
-                keyboardType="email-address"
-                onChangeText={(email) => setForm({ ...form, email })}
-                placeholder="john@example.com"
+                onChangeText={(username) => setForm({ ...form, username })}
+                placeholder="username..."
                 placeholderTextColor="#6b7280"
                 style={styles.inputControl}
-                value={form.email}
+                value={form.username}
               />
               {errors.email && (
                 <Text style={styles.errorText}>{errors.email}</Text>
@@ -151,7 +151,9 @@ export default function Example() {
               style={styles.button}
               onPress={() => console.log("Button Pressed")}
             >
-              <Text style={styles.formFooter}>Dont have an account? Sign Up here.</Text>
+              <Text style={styles.formFooter}>
+                Dont have an account? Sign Up here.
+              </Text>
             </AnimatedTouchableOpacity>
           </Link>
         </View>
@@ -231,9 +233,7 @@ const styles = StyleSheet.create({
     color: "#222",
     marginBottom: 8,
   },
-  buttonText: {
-
-  },
+  buttonText: {},
   inputControl: {
     height: 50,
     backgroundColor: "#fff",
@@ -246,9 +246,7 @@ const styles = StyleSheet.create({
     borderColor: "#C9D3DB",
     borderStyle: "solid",
   },
-  button: {
-
-  },
+  button: {},
   errorText: {
     color: "red",
     fontSize: 14,

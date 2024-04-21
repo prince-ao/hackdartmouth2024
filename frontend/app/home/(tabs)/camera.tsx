@@ -90,8 +90,40 @@ export default function CameraCP() {
       const currentLocation = await fetchUserLocation();
 
       console.log(JSON.stringify(currentLocation));
+      /*setTimeout(() => {
+        const responseData = `
+              The coordinates provided (43.7019, -72.2827) point to Dartmouth College, which is located in Hanover, New Hampshire. The
+        image you shared features Baker Memorial Library, an iconic building at Dartmouth College.
 
-      const response = await fetch("http://34.125.69.153/gen-ar", {
+        Historical Context:
+        Dartmouth College, founded in 1769, is one of the oldest and most prestigious institutions of higher education in the
+        United States. It was established by Eleazar Wheelock, a Congregational minister from Connecticut, with the original
+        purpose of educating Native Americans. However, it quickly transitioned to primarily educating the colonial settlers'
+        children.
+
+        The Baker Memorial Library, central in your photograph, was completed in 1928 and is named after George Fisher Baker, a
+        financier who donated substantial funds for its construction. The building is designed in a Colonial Revival style,
+        which was a popular architectural style in the United States during the early 20th century, characterized by its
+        symmetrical design, accentuated front door, and classical details. The brick facade and the white-bordered windows are
+        typical of this style.
+
+        Baker Library is not only a functional space serving students and faculty; it also holds significant historical and
+        cultural artifacts, including murals by José Clemente Orozco, a renowned Mexican muralist. His work in the library,
+        titled "The Epic of American Civilization," is considered one of the most important pieces of art at Dartmouth.
+
+        Today, Dartmouth is renowned for its commitment to providing a liberal arts education and for its unique blend of
+        teaching, research, and cultural resources, like those found in Baker Library. The setting in picturesque New Hampshire
+        adds to its historic charm and academic environment.
+              `;
+
+        console.log(responseData);
+        setLoading(false);
+
+        setResponseText(responseData);
+        setModalVisible(true);
+      }, 1e3 * 3);*/
+
+      const response = await fetch("http://34.125.69.163/gen-ar", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -103,8 +135,6 @@ export default function CameraCP() {
       });
 
       const responseData = await response.text();
-
-      console.log(responseData);
       setLoading(false);
 
       setResponseText(responseData);
@@ -126,6 +156,7 @@ export default function CameraCP() {
   return (
     <Camera style={styles.camera} ref={cameraRef}>
       <View style={styles.counterContainer}>
+        {loading && <ActivityIndicator size="large" color="#00ff00" />}
         <Text style={styles.countdownText}>{countdown}</Text>
         <TouchableOpacity
           style={styles.dashedSquare}
@@ -133,9 +164,6 @@ export default function CameraCP() {
           onPressOut={handlePressOut}
         />
       </View>
-      {loading && (
-        <ActivityIndicator size="large" color="#00ff00" /> // Customize size and color as needed
-      )}
 
       <Modal
         animationType="slide"

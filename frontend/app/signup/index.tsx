@@ -26,6 +26,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import axios, { AxiosError } from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const backgroundImage = require("../../assets/images/background-2.jpg");
 
@@ -41,6 +42,14 @@ export default function SignUp() {
   const [errors, setErrors] = useState<any>({});
   const [isLoading, setIsLoading] = useState(false);
 
+  const storeData = async (value: any) => {
+    try {
+      await AsyncStorage.setItem("my-key", value);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const handleSignUp = async () => {
     setIsLoading(true);
     try {
@@ -49,8 +58,9 @@ export default function SignUp() {
         username: form.username,
         password: form.password,
       });
-      console.log(data);
-      router.replace("/home/");
+
+      storeData(data);
+      router.replace("/home/(tabs)/camera");
     } catch (error: any) {
       console.log(error.message);
       Alert.alert("Error", "Failed to create account");
