@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { Camera } from "expo-camera";
 import * as Location from "expo-location";
+import DropdownComponent from "@/components/DropdownComponenet";
 
 export default function CameraCP() {
   const [hasPermission, setHasPermission] = useState(false);
@@ -155,37 +156,40 @@ export default function CameraCP() {
   }
 
   return (
-    <Camera style={styles.camera} ref={cameraRef}>
-      <View style={styles.counterContainer}>
-        {loading && <ActivityIndicator size="large" color="#00ff00" />}
-        <Text style={styles.countdownText}>{countdown}</Text>
-        <TouchableOpacity
-          style={styles.dashedSquare}
-          onLongPress={handleLongPress}
-          onPressOut={handlePressOut}
-        />
-      </View>
-
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
-          setModalVisible(!modalVisible);
-        }}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>{responseText}</Text>
-            <Button
-              title="Close"
-              onPress={() => setModalVisible(!modalVisible)}
-            />
-          </View>
+    <>
+      <DropdownComponent />
+      <Camera style={styles.camera} ref={cameraRef}>
+        <View style={styles.counterContainer}>
+          {loading && <ActivityIndicator size="large" color="#00ff00" />}
+          <Text style={styles.countdownText}>{countdown}</Text>
+          <TouchableOpacity
+            style={styles.dashedSquare}
+            onLongPress={handleLongPress}
+            onPressOut={handlePressOut}
+          />
         </View>
-      </Modal>
-    </Camera>
+
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+            setModalVisible(!modalVisible);
+          }}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text style={styles.modalText}>{responseText}</Text>
+              <Button
+                title="Close"
+                onPress={() => setModalVisible(!modalVisible)}
+              />
+            </View>
+          </View>
+        </Modal>
+      </Camera>
+    </>
   );
 }
 

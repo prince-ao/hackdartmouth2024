@@ -48,6 +48,7 @@ const DropdownComponent = () => {
         onFocus={() => setIsFocus(true)}
         onBlur={() => setIsFocus(false)}
         onChange={(period) => {
+          // Check dot operator on object
           setValue(period);
           setIsFocus(false);
         }}
