@@ -1,9 +1,10 @@
 from flask import Flask, request
 from config import DevConfig
-from db import User, db
-from flask_jwt_extended import create_access_token, JWTManager
+from db import User, Post, db
+from flask_jwt_extended import create_access_token, JWTManager, decode_token
 from flask_cors import CORS
 from openai import OpenAI
+from groq import Groq
 from decouple import config
 from PIL import Image
 import io
@@ -11,6 +12,9 @@ import base64
 
 
 client = OpenAI(api_key=config("OPENAI_API_KEY"))
+groq_client = Groq(
+    api_key=config("GROQ_API_KEY"),
+)
 
 
 app = Flask(__name__)
@@ -50,6 +54,18 @@ def login():
 
     return access_token
 
+@app.get('/home')
+def things():
+    auth_token = request.headers.get('auth')
+
+    strike = decode_token(auth_token)
+
+    id = int(strike['sub'])
+
+    posts = Post.query.filter_by(user_id=id).all()
+
+    return [post.to_dict() for post in posts]
+
 def compress_base64_image(base64_string, output_format='JPEG', quality=20):
     image_data = base64.b64decode(base64_string)
     image = Image.open(io.BytesIO(image_data))
@@ -65,8 +81,18 @@ def gen_ar():
     body = request.get_json()
     base64_image = body['data']
     location = body['location']
+    history = body['history']
 
     base64_image = compress_base64_image(base64_image)
+
+    auth_token = request.headers.get('auth')
+
+    if not auth_token:
+        return "auth required", 400
+
+    strike = decode_token(auth_token)
+
+    id = int(strike['sub'])
 
 
     response = client.chat.completions.create(
@@ -75,7 +101,10 @@ def gen_ar():
             {
             "role": "user",
             "content": [
-                {"type": "text", "text": f"Give me the historical context of this image. It was taken at this location: {location}"},
+                {
+                    "type": "text", 
+                    "text": f"Give me the historical context of this image. It was taken at this location: {location}. I want historical context around {history}"
+                },
                 {
                     "type": "image_url",
                     "image_url": {
@@ -87,7 +116,31 @@ def gen_ar():
         ],
     )
 
-    return response.choices[0].message.content
+    response_text = response.choices[0].message.content
+
+    chat_completion = groq_client.chat.completions.create(
+        messages=[
+            {
+                "role": "user",
+                "content": f"Make a short title for this: {response_text}",
+            }
+        ],
+        model="mixtral-8x7b-32768",
+    )
+
+    title_comp = chat_completion.choices[0].message.content
+
+    new_post = Post(
+        user_id = id,
+        image = base64_image,
+        title = title_comp,
+        description = response_text
+    )
+
+    db.session.add(new_post)
+    db.session.commit()
+
+    return response_text
 
 
 @app.get('/')
