@@ -6,7 +6,6 @@ const windowWidth = Dimensions.get('window').width;
 const columnWidth = windowWidth / 3;
 
 const generateData = (page: number) => {
-  // Generate 20 items for each page
   return Array.from({ length: 20 }, (_, i) => ({
     id: `item-${page}-${i}`,
     text: `Item ${page}-${i}`,
@@ -49,7 +48,7 @@ const styles = StyleSheet.create({
     
   },
   item: {
-    width: columnWidth - 20, // Subtract padding
+    width: columnWidth - 20,
     padding: 10,
     margin: 5,
     backgroundColor: '#ccc',
