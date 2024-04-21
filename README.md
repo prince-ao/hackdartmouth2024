@@ -1,5 +1,3 @@
-# Time Frame
-
 ![Logo](https://github.com/prince-ao/hackdartmouth2024/assets/122007821/d6b410df-5a22-48bd-a9b7-f423b6749284)
 
 Timeframe is an Augmented Reality (AR) mobile application that reveals the history of places through your smartphone. Simply aim your phone at historical landmarks and buildings, and Timeframe will take you on a journey back in time.
