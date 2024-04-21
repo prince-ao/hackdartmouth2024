@@ -1,6 +1,8 @@
 ![Logo](https://github.com/prince-ao/hackdartmouth2024/assets/122007821/d6b410df-5a22-48bd-a9b7-f423b6749284)
 
 Timeframe is an Augmented Reality (AR) mobile application that reveals the history of places through your smartphone. Simply aim your phone at historical landmarks and buildings, and Timeframe will take you on a journey back in time.
+
+This project was made for HackDartmouth IX, it is for the Education track, Best use of AI in Education, Best DEI Hack by Fidelity, and Best Domain Name from GoDaddy.
 ## Overview
 
 - **Website**: Built with Next.js, it offers a fast, user-friendly interface for web users.
