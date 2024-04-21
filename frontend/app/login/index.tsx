@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "expo-router";
 import {
   StyleSheet,
   SafeAreaView,
@@ -10,6 +11,15 @@ import {
   ActivityIndicator,
   Alert,
 } from "react-native";
+import Animated, {
+  FadeInLeft,
+  useSharedValue,
+  useAnimatedStyle,
+  withRepeat,
+  withTiming,
+  Easing,
+  withSequence,
+} from "react-native-reanimated";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { ImageBackground } from "react-native";
 export default function Example() {
@@ -20,6 +30,10 @@ export default function Example() {
   const [errors, setErrors] = useState<any>({});
   const [isLoading, setIsLoading] = useState(false);
   const backgroundImage = require("../../assets/images/background-2.jpg");
+
+  const AnimatedTouchableOpacity =
+  Animated.createAnimatedComponent(TouchableOpacity);
+
 
   const validateForm = () => {
     let valid = true;
@@ -133,19 +147,15 @@ export default function Example() {
               {/* Forgot Password Link */}
               <Text style={styles.formLink}>Forgot password?</Text>
             </View>
-
-            {/* Sign Up Link */}
-            <TouchableOpacity
-              onPress={() => {
-                // handle link to sign up
-              }}
-              style={{ marginTop: "auto" }}
+            <Link href="/signup/" asChild replace>
+            <AnimatedTouchableOpacity
+              entering={FadeInLeft.duration(500).delay(600)}
+              style={styles.button}
+              onPress={() => console.log("Button Pressed")}
             >
-              <Text style={styles.formFooter}>
-                Don't have an account?{" "}
-                <Text style={{ textDecorationLine: "underline" }}>Sign up</Text>
-              </Text>
-            </TouchableOpacity>
+              <Text style={styles.formFooter}>Dont have an account? Sign Up</Text>
+            </AnimatedTouchableOpacity>
+          </Link>
           </View>
         </KeyboardAwareScrollView>
     </ImageBackground>
@@ -222,6 +232,9 @@ const styles = StyleSheet.create({
     color: "#222",
     marginBottom: 8,
   },
+  buttonText: {
+
+  },
   inputControl: {
     height: 50,
     backgroundColor: "#fff",
@@ -233,6 +246,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#C9D3DB",
     borderStyle: "solid",
+  },
+  button: {
+    
   },
   errorText: {
     color: "red",
