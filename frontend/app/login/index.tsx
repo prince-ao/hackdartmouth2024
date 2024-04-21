@@ -60,7 +60,6 @@ export default function Example() {
       style={styles.backgroundImage}
       resizeMode="cover"
     >
-      <SafeAreaView style={{} /*styles.flexContainer*/}>
         <KeyboardAwareScrollView style={{} /*styles.scrollView*/}>
           <View style={styles.container}>
             {/* Header Section */}
@@ -149,7 +148,6 @@ export default function Example() {
             </TouchableOpacity>
           </View>
         </KeyboardAwareScrollView>
-      </SafeAreaView>
     </ImageBackground>
   );
 }
@@ -157,8 +155,10 @@ export default function Example() {
 const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
+    position: "absolute",
     width: "100%",
-    height: "100%",
+    height: "110%",
+    objectFit: "cover",
   },
   container: {
     paddingVertical: 24,
