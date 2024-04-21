@@ -3,12 +3,16 @@
 Timeframe is an Augmented Reality (AR) mobile application that reveals the history of places through your smartphone. Simply aim your phone at historical landmarks and buildings, and Timeframe will take you on a journey back in time.
 
 This project was made for HackDartmouth IX, it is for the Education track, Best use of AI in Education, Best DEI Hack by Fidelity, and Best Domain Name from GoDaddy.
-## Overview
 
-- **Website**: Built with Next.js, it offers a fast, user-friendly interface for web users.
-- **Frontend**: A React Native application designed for both iOS and Android, providing a native app experience.
-- **Backend**: A Python-based backend, designed to be lightweight and scalable, serving both the website and the mobile frontend.
-- 
+## Features
+- **
+
+## Technologies Used 
+- **Expo & React Native**:Used as primary framework for our mobile app. Expo is used for testing and simplifying React Native whenever possible. 
+- **React/Expo Navigation**: Provides navigation functionality for the app, allowing users to navigate between different screens and components.
+- **Axios**: Used to fetch or send data to a backend server or third-party services.
+- **Misc Expo Modules**: Various Expo modules (expo-camera, expo-location, expo-splash-screen, etc.) are used to access device hardware and native APIs.
+- **React Native Reanimated & Gesture Handler**: Used for creating smooth animations and handling user gestures in the app. Enhances the app's UI/UX with fluid animations and responsive touch interactions.
 <img width="432" alt="Landing" src="https://github.com/prince-ao/hackdartmouth2024/assets/122007821/6ddac9ba-5bc5-4abf-b206-688513ab56e0">
 
 ## Getting Started
