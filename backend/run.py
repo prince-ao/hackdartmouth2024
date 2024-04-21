@@ -50,7 +50,7 @@ def login():
     if not user or str(user.password) != str(body['password']):
         return "Invalid username or password", 401
 
-    access_token = create_access_token(identity=user.id)
+    access_token = create_access_token(identity=user.id, expires_delta=100000)
 
     return access_token
 
@@ -122,7 +122,7 @@ def gen_ar():
         messages=[
             {
                 "role": "user",
-                "content": f"Make a short title for this: {response_text}",
+                "content": f"Make a short title for this: {response_text}. Just give me the title, nothing extra.",
             }
         ],
         model="mixtral-8x7b-32768",

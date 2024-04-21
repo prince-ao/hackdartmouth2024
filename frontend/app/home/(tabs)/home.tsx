@@ -10,13 +10,13 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
+import Animated from "react-native-reanimated";
 
 const windowWidth = Dimensions.get("window").width;
 const columnWidth = windowWidth / 3;
 
 export default function Screen() {
   const [data, setData] = useState<any[]>([]);
-  const [page, setPage] = useState(1);
 
   useEffect(() => {
     (async () => {
@@ -31,10 +31,9 @@ export default function Screen() {
       });
 
       const response_data = await response.json();
-      console.log(response_data);
       setData(response_data);
     })();
-  });
+  }, []);
 
   return (
     <ScrollView style={styles.container}>
@@ -44,13 +43,17 @@ export default function Screen() {
           <View key={index} style={{ padding: 10 }}>
             <TouchableOpacity
               onPress={() =>
-                router.navigate({ pathname: "Details", params: { index } })
+                router.navigate(
+                  `/home/Details?image=${item.image}&description=${item.description}&title=${item.title}&index=${index}`
+                )
               }
             >
-              <Image
+              <Animated.Image
+                sharedTransitionTag={`image-${index}`}
                 style={{ width: 100, height: 100 }}
                 source={{ uri: `data:image/jpeg;base64,${item.image}` }}
               />
+              <Text>{item.title}</Text>
             </TouchableOpacity>
           </View>
         ))}
