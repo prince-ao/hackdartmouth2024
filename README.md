@@ -46,6 +46,7 @@ Timeframe is an Augmented Reality (AR) mobile application that reveals the histo
    ```
 
 ### Running the Development Server
+- **Website**: The website is hosted as a Python Flask API for authenication at [TimeFrame.Study](www.timeframe.study) Hosted by GoDaddy.
 
 - **Website**: Navigate to the `website` directory and run `npm run dev`. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 - **Frontend**: In the `frontend` directory, run `npm start` to start the Expo development server.
@@ -64,7 +65,3 @@ Contributions are welcome! Please read our contributing guidelines for details o
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
-
----
-
-This template is a starting point and can be customized based on the specific needs and additional details of the `prince-ao/hackdartmouth2024` project.
