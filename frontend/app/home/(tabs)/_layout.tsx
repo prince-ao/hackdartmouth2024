@@ -33,7 +33,6 @@ export default function TabLayout() {
       <Tabs.Screen
         name="home"
         options={{
-          title: "Home",
           tabBarIcon: ({ color }: { color: string }) => <TabBarIcon name="home" color={color}  />,
         }}
       />
@@ -41,7 +40,6 @@ export default function TabLayout() {
       <Tabs.Screen
         name="camera"
         options={{
-          title: "Camera",
           tabBarIcon: ({ color }: { color: string }) => <TabBarIcon name="camera" color={color}  />,
         }}
       />
@@ -49,7 +47,6 @@ export default function TabLayout() {
       <Tabs.Screen
         name="settings"
         options={{
-          title: "Settings",
           tabBarIcon: ({ color }: { color: string }) => <TabBarIcon name="cog" color={color}  />,
         }}
       />

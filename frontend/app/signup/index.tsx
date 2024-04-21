@@ -148,7 +148,7 @@ export default function SignUp() {
                   <ActivityIndicator size="large" color="#075eec" />
                 ) : (
                   <TouchableOpacity
-                    onPress={() => router.replace("/home/") /*handleSignUp*/}
+                    onPress={() => router.replace("/home/(tabs)/home")}
                   >
                     <View style={styles.btn}>
                       <Text style={styles.btnText}>Sign Up</Text>
