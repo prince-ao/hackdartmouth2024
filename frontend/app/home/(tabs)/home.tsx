@@ -1,42 +1,58 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
-import { FlatList } from 'react-native';
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+} from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { router } from "expo-router";
 
-const windowWidth = Dimensions.get('window').width;
+const windowWidth = Dimensions.get("window").width;
 const columnWidth = windowWidth / 3;
 
-const generateData = (page: number) => {
-  return Array.from({ length: 20 }, (_, i) => ({
-    id: `item-${page}-${i}`,
-    text: `Item ${page}-${i}`,
-  }));
-};
-
 export default function Screen() {
-  const [data, setData] = useState(generateData(0));
+  const [data, setData] = useState<any[]>([]);
   const [page, setPage] = useState(1);
 
-  const renderItem = ({ item }: { item: { id: string, text: string } }) => (
-    <View style={styles.item}>
-      <Text>{item.text}</Text>
-    </View>
-  );
+  useEffect(() => {
+    (async () => {
+      const key = await AsyncStorage.getItem("my-key");
 
-  const loadMoreItems = () => {
-    setPage((prevPage) => prevPage + 1);
-  };
+      const response = await fetch("http://timeframe.study/home", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          auth: key!,
+        },
+      });
+
+      const response_data = await response.json();
+      setData(response_data);
+    })();
+  });
 
   return (
-    <View style={styles.container}>
-      <FlatList
-        data={data}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-        numColumns={3}
-        onEndReached={loadMoreItems}
-        onEndReachedThreshold={0.5}
-      />
-    </View>
+    <ScrollView style={styles.container}>
+      <Text>Previous Frames</Text>
+      {data.map((item, index) => (
+        <View key={index} style={{ padding: 10 }}>
+          <TouchableOpacity
+            onPress={() =>
+              router.navigate({ pathname: "Details", params: { index } })
+            }
+          >
+            <Image
+              style={{ width: 100, height: 100 }}
+              source={{ uri: `data:image/jpeg;base64,${item.image}` }}
+            />
+          </TouchableOpacity>
+        </View>
+      ))}
+    </ScrollView>
   );
 }
 
@@ -45,12 +61,11 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     width: windowWidth,
-    
   },
   item: {
     width: columnWidth - 20,
     padding: 10,
     margin: 5,
-    backgroundColor: '#ccc',
+    backgroundColor: "#ccc",
   },
 });

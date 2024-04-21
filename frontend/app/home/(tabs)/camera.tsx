@@ -12,6 +12,8 @@ import {
 } from "react-native";
 import { Camera } from "expo-camera";
 import * as Location from "expo-location";
+import { Picker } from "@react-native-picker/picker";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function CameraCP() {
   const [hasPermission, setHasPermission] = useState(false);
@@ -20,6 +22,7 @@ export default function CameraCP() {
   const [modalVisible, setModalVisible] = useState(false);
   const [responseText, setResponseText] = useState("");
   const [loading, setLoading] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState("1500 AD");
 
   useEffect(() => {
     requestCameraPermission();
@@ -124,14 +127,18 @@ export default function CameraCP() {
         setModalVisible(true);
       }, 1e3 * 3);*/
 
+      const key = await AsyncStorage.getItem("my-key");
+
       const response = await fetch("http://timeframe.study/gen-ar", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          auth: key!,
         },
         body: JSON.stringify({
           data: base64Image,
           location: JSON.stringify(currentLocation),
+          history: selectedLanguage,
         }),
       });
 
@@ -160,6 +167,20 @@ export default function CameraCP() {
         style={styles.arc}
         source={require("@/assets/images/hack-dartmouth-24-camera-frame.png")}
       />
+      <Picker
+        style={styles.picker}
+        selectedValue={selectedLanguage}
+        onValueChange={(itemValue, itemIndex) => {
+          setSelectedLanguage(itemValue);
+        }}
+      >
+        <Picker.Item label="1500 AD" value="1500 AD" />
+        <Picker.Item label="1600 AD" value="1600 AD" />
+        <Picker.Item label="1700 AD" value="1700 AD" />
+        <Picker.Item label="1800 AD" value="1800 AD" />
+        <Picker.Item label="1900 AD" value="1900 AD" />
+        <Picker.Item label="2000 AD" value="2000 AD" />
+      </Picker>
       <View style={styles.counterContainer}>
         {loading && <ActivityIndicator size="large" color="#00ff00" />}
         <Text style={styles.countdownText}>{countdown}</Text>
@@ -252,8 +273,15 @@ const styles = StyleSheet.create({
   arc: {
     width: 420,
     height: 530,
-    zIndex: 100,
     position: "absolute",
     top: 5,
+    zIndex: 8,
+  },
+  picker: {
+    position: "absolute",
+    top: 50,
+    width: 150,
+    backgroundColor: "gray",
+    zIndex: 10,
   },
 });
