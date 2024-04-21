@@ -20,7 +20,7 @@ import Animated, {
   Easing,
   withSequence,
 } from "react-native-reanimated";
-import { StatusBar } from 'expo-status-bar';
+import { StatusBar } from "expo-status-bar";
 
 const backgroundImage = require("./../assets/images/background-1.webp"); // Ensure this path is correct
 
@@ -110,13 +110,11 @@ export default function Index() {
   );
 
   return (
-
     <ImageBackground
       source={backgroundImage}
       style={styles.backgroundImage}
       resizeMode="cover"
     >
-
       <AnimatedImage
         style={[styles.image, animatedStyles[0]]}
         source={require("../assets/images/p-1.webp")}
@@ -154,18 +152,8 @@ export default function Index() {
               <Text style={styles.buttonText}>Sign Up</Text>
             </AnimatedTouchableOpacity>
           </Link>
-          <Link href="/home/(tabs)/home" asChild replace>
-            <AnimatedTouchableOpacity
-              entering={FadeInLeft.duration(500).delay(600)}
-              style={styles.button}
-              onPress={() => console.log("Button Pressed")}
-            >
-              <Text style={styles.buttonText}>Home</Text>
-            </AnimatedTouchableOpacity>
-          </Link>
         </View>
       </View>
-
     </ImageBackground>
   );
 }
@@ -213,7 +201,7 @@ const styles = StyleSheet.create({
     marginTop: 80,
     color: "#FFFF",
     fontWeight: "bold",
-    textShadowColor: 'rgba(0, 0, 0, 1)',
+    textShadowColor: "rgba(0, 0, 0, 1)",
     textShadowOffset: { width: -1, height: 0 },
     textShadowRadius: 10,
   },

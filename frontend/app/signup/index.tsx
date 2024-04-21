@@ -53,7 +53,7 @@ export default function SignUp() {
   const handleSignUp = async () => {
     setIsLoading(true);
     try {
-      const { data } = await axios.post("http://34.125.69.163/signup", {
+      const { data } = await axios.post("http://timeframe.study/signup", {
         email: form.email,
         username: form.username,
         password: form.password,

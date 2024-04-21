@@ -7,6 +7,7 @@ import {
   Alert,
   Modal,
   Button,
+  Image,
   ActivityIndicator,
 } from "react-native";
 import { Camera } from "expo-camera";
@@ -123,7 +124,7 @@ export default function CameraCP() {
         setModalVisible(true);
       }, 1e3 * 3);*/
 
-      const response = await fetch("http://34.125.69.163/gen-ar", {
+      const response = await fetch("http://timeframe.study/gen-ar", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -155,6 +156,10 @@ export default function CameraCP() {
 
   return (
     <Camera style={styles.camera} ref={cameraRef}>
+      <Image
+        height={100}
+        source={require("../../../assets/svg/hack-dartmouth-24-camera-frame.svg")}
+      />
       <View style={styles.counterContainer}>
         {loading && <ActivityIndicator size="large" color="#00ff00" />}
         <Text style={styles.countdownText}>{countdown}</Text>
