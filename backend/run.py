@@ -40,7 +40,7 @@ def signup():
     db.session.add(new_user)
     db.session.commit()
 
-    access_token = create_access_token(identity=new_user.id, expires_delta=100000)
+    access_token = create_access_token(identity=new_user.id)
 
     return access_token
 
@@ -53,7 +53,7 @@ def login():
     if not user or str(user.password) != str(body['password']):
         return "Invalid username or password", 401
 
-    access_token = create_access_token(identity=user.id, expires_delta=100000)
+    access_token = create_access_token(identity=user.id)
 
     return access_token
 
