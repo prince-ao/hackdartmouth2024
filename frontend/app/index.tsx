@@ -21,6 +21,8 @@ import Animated, {
   withSequence,
 } from "react-native-reanimated";
 import { StatusBar } from "expo-status-bar";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { router } from "expo-router";
 
 const backgroundImage = require("./../assets/images/background-1.webp"); // Ensure this path is correct
 
@@ -58,7 +60,7 @@ function generatePositions(count: any, maxX: any, maxY: any, minDist: any) {
 }
 
 export default function Index() {
-  const maxRadius = 50; // Maximum radius of the image movement
+  const maxRadius = 50;
   const imageSize = 100;
   const maxMovementX = width - imageSize;
   const maxMovementY = height / 2 - imageSize - maxRadius;
@@ -79,7 +81,19 @@ export default function Index() {
     direction: Math.random() > 0.5 ? 1 : -1, // randomly choosing rotation direction
   }));
 
+  const getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem("my-key");
+      if (value !== null) {
+        router.replace("/home/(tabs)/camera");
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   useEffect(() => {
+    getData();
     animations.forEach((anim) => {
       anim.angle.value = withRepeat(
         withTiming(2 * Math.PI * anim.direction, {

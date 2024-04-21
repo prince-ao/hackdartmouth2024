@@ -157,8 +157,8 @@ export default function CameraCP() {
   return (
     <Camera style={styles.camera} ref={cameraRef}>
       <Image
-        height={100}
-        source={require("../../../assets/svg/hack-dartmouth-24-camera-frame.svg")}
+        style={styles.arc}
+        source={require("@/assets/images/hack-dartmouth-24-camera-frame.png")}
       />
       <View style={styles.counterContainer}>
         {loading && <ActivityIndicator size="large" color="#00ff00" />}
@@ -248,5 +248,12 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: "center",
+  },
+  arc: {
+    width: 420,
+    height: 530,
+    zIndex: 100,
+    position: "absolute",
+    top: 5,
   },
 });
