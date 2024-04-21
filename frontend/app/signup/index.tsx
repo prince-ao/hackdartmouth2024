@@ -44,13 +44,13 @@ export default function SignUp() {
   const handleSignUp = async () => {
     setIsLoading(true);
     try {
-      const { data } = await axios.post("http://172.27.164.160:5000/signup", {
+      const { data } = await axios.post("http://34.125.69.163/signup", {
         email: form.email,
         username: form.username,
         password: form.password,
       });
       console.log(data);
-      Alert.alert("Success", "Your account has been created!");
+      router.replace("/home/");
     } catch (error: any) {
       console.log(error.message);
       Alert.alert("Error", "Failed to create account");
@@ -147,9 +147,7 @@ export default function SignUp() {
                 {isLoading ? (
                   <ActivityIndicator size="large" color="#075eec" />
                 ) : (
-                  <TouchableOpacity
-                    onPress={() => router.replace("/home/(tabs)/home")}
-                  >
+                  <TouchableOpacity onPress={handleSignUp}>
                     <View style={styles.btn}>
                       <Text style={styles.btnText}>Sign Up</Text>
                     </View>
