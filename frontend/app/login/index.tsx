@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
     color: "#222",
     textAlign: "center",
     letterSpacing: 0.15,
-    marginTop: 20,
+    marginTop: 0,
   },
   input: {
     marginBottom: 16,
