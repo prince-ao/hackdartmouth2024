@@ -146,7 +146,14 @@ export default function Index() {
         source={require("../assets/images/p-4.webp")}
       />
       <View style={styles.container}>
-        <Text style={styles.title}>Welcome to TimeFrame</Text>
+      <Image
+                alt="App Logo"
+                resizeMode="contain"
+                style={styles.headerImg}
+                source={require("./../assets/images/app_icon.png")}
+              />
+        <Text style={styles.title}>TimeFrame</Text>
+        
         <View style={styles.buttonContainer}>
           <Link href="/login/" asChild replace>
             <AnimatedTouchableOpacity
@@ -210,9 +217,16 @@ const styles = StyleSheet.create({
     backgroundColor: "#3C8690",
     borderRadius: 30,
   },
+  headerImg: {
+    width: 80,
+    height: 80,
+    marginTop: 150,
+    alignSelf: "center",
+
+  },
   title: {
     fontSize: 24,
-    marginTop: 80,
+    marginBottom: 380,
     color: "#FFFF",
     fontWeight: "bold",
     textShadowColor: "rgba(0, 0, 0, 1)",
