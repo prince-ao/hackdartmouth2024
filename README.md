@@ -25,9 +25,8 @@ This project was made for HackDartmouth IX, it is for the Education track, Best 
 - **React Native Reanimated & Gesture Handler**: Used for creating smooth animations and handling user gestures in the app. Enhances the app's UI/UX with fluid animations and responsive touch interactions.
 
 ## Overview
-
-![Landing](https://github.com/prince-ao/hackdartmouth2024/assets/122007821/6ddac9ba-5bc5-4abf-b206-688513ab56e0)
-![SignUp](https://github.com/prince-ao/hackdartmouth2024/assets/122007821/9123315b-9ad7-44b4-9298-2c614e7232da)
+<img width="432" alt="Landing" src="https://github.com/prince-ao/hackdartmouth2024/assets/122007821/7ca07312-4f61-450c-a570-9b304613b38b">
+<img width="427" alt="SignIn" src="https://github.com/prince-ao/hackdartmouth2024/assets/122007821/f047fd61-fc3d-44aa-9549-d2fec1258bbe">
 
 ## Getting Started
 
