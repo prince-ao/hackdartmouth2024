@@ -170,7 +170,7 @@ export default function CameraCP() {
       <Picker
         style={styles.picker}
         selectedValue={selectedLanguage}
-        onValueChange={(itemValue, itemIndex) => {
+        onValueChange={(itemValue: React.SetStateAction<string>, itemIndex: number | string) => {
           setSelectedLanguage(itemValue);
         }}
       >

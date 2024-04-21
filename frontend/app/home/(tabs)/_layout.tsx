@@ -23,7 +23,8 @@ export default function TabLayout() {
       initialRouteName="camera"
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
-        headerShown: useClientOnlyValue(false, true),
+        // headerShown: useClientOnlyValue(false, true),
+        headerShown: false,
         tabBarStyle: {
           display: "flex",
         },
