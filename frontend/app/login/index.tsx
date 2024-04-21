@@ -153,7 +153,7 @@ export default function Example() {
               style={styles.button}
               onPress={() => console.log("Button Pressed")}
             >
-              <Text style={styles.formFooter}>Dont have an account? Sign Up</Text>
+              <Text style={styles.formFooter}>Dont have an account? Sign Up here.</Text>
             </AnimatedTouchableOpacity>
           </Link>
           </View>
@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
   },
   formAction: {
     marginTop: 4,
-    marginBottom: 16,
+    marginBottom: 32,
   },
   formLink: {
     fontSize: 16,
@@ -222,6 +222,7 @@ const styles = StyleSheet.create({
     color: "#222",
     textAlign: "center",
     letterSpacing: 0.15,
+    marginTop: 20,
   },
   input: {
     marginBottom: 16,
