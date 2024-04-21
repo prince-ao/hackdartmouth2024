@@ -31,6 +31,7 @@ export default function Screen() {
       });
 
       const response_data = await response.json();
+      console.log(response_data);
       setData(response_data);
     })();
   });
@@ -38,20 +39,21 @@ export default function Screen() {
   return (
     <ScrollView style={styles.container}>
       <Text>Previous Frames</Text>
-      {data.map((item, index) => (
-        <View key={index} style={{ padding: 10 }}>
-          <TouchableOpacity
-            onPress={() =>
-              router.navigate({ pathname: "Details", params: { index } })
-            }
-          >
-            <Image
-              style={{ width: 100, height: 100 }}
-              source={{ uri: `data:image/jpeg;base64,${item.image}` }}
-            />
-          </TouchableOpacity>
-        </View>
-      ))}
+      {data.length > 0 &&
+        data.map((item, index) => (
+          <View key={index} style={{ padding: 10 }}>
+            <TouchableOpacity
+              onPress={() =>
+                router.navigate({ pathname: "Details", params: { index } })
+              }
+            >
+              <Image
+                style={{ width: 100, height: 100 }}
+                source={{ uri: `data:image/jpeg;base64,${item.image}` }}
+              />
+            </TouchableOpacity>
+          </View>
+        ))}
     </ScrollView>
   );
 }
