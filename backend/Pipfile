@@ -8,6 +8,7 @@ flask = "*"
 flask-sqlalchemy = "*"
 flask-jwt-extended = "*"
 python-decouple = "*"
+flask-cors = "*"
 
 [dev-packages]
 

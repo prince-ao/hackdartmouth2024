@@ -2,12 +2,14 @@ from flask import Flask, request
 from config import DevConfig
 from db import User, db
 from flask_jwt_extended import create_access_token, JWTManager
+from flask_cors import CORS
 
 
 app = Flask(__name__)
 app.config.from_object(DevConfig)
 db.init_app(app)
 JWTManager(app)
+CORS(app)
 
 
 @app.post('/signup')
