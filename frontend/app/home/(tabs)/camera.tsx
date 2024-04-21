@@ -8,6 +8,7 @@ import {
   Modal,
   Button,
   ActivityIndicator,
+  Pressable
 } from "react-native";
 import { Camera } from "expo-camera";
 import * as Location from "expo-location";
