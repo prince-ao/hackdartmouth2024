@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     width: windowWidth,
   },
   item: {
-    width: columnWidth - 20, // Subtract padding
+    width: columnWidth - 20,
     padding: 10,
     margin: 5,
     backgroundColor: "#ccc",
