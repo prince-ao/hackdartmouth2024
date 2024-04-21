@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   Dimensions,
   Image,
+  SafeAreaView,
 } from "react-native";
 import Animated, {
   FadeInLeft,
@@ -19,6 +20,9 @@ import Animated, {
   Easing,
   withSequence,
 } from "react-native-reanimated";
+import { StatusBar } from 'expo-status-bar';
+
+const backgroundImage = require("./../assets/images/background-1.webp"); // Ensure this path is correct
 
 const { width, height } = Dimensions.get("window"); // Screen dimensions
 
@@ -106,26 +110,28 @@ export default function Index() {
   );
 
   return (
+
     <ImageBackground
-      source={require("../assets/images/background-1.webp")}
-      style={styles.background}
+      source={backgroundImage}
+      style={styles.backgroundImage}
       resizeMode="cover"
     >
+
       <AnimatedImage
         style={[styles.image, animatedStyles[0]]}
-        source={require("../assets/images/p-1.jpg")}
+        source={require("../assets/images/p-1.webp")}
       />
       <AnimatedImage
         style={[styles.image, animatedStyles[1]]}
-        source={require("../assets/images/p-2.jpg")}
+        source={require("../assets/images/p-2.webp")}
       />
       <AnimatedImage
         style={[styles.image, animatedStyles[2]]}
-        source={require("../assets/images/p-3.jpg")}
+        source={require("../assets/images/p-3.webp")}
       />
       <AnimatedImage
         style={[styles.image, animatedStyles[3]]}
-        source={require("../assets/images/p-4.jpg")}
+        source={require("../assets/images/p-4.webp")}
       />
       <View style={styles.container}>
         <Text style={styles.title}>Welcome to TimeFrame</Text>
@@ -148,7 +154,7 @@ export default function Index() {
               <Text style={styles.buttonText}>Sign Up</Text>
             </AnimatedTouchableOpacity>
           </Link>
-          <Link href="/home/" asChild replace>
+          <Link href="/home/(tabs)/home" asChild replace>
             <AnimatedTouchableOpacity
               entering={FadeInLeft.duration(500).delay(600)}
               style={styles.button}
@@ -159,14 +165,15 @@ export default function Index() {
           </Link>
         </View>
       </View>
+
     </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
   image: {
-    width: 100,
-    height: 100,
+    width: 180,
+    height: 130,
     position: "absolute",
     top: 0,
   },
@@ -175,9 +182,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 20,
   },
-  background: {
+  backgroundImage: {
     flex: 1,
-    justifyContent: "center",
+    position: "absolute",
+    width: "100%",
+    height: "110%",
+    objectFit: "cover",
   },
   container: {
     flex: 1,
@@ -201,5 +211,10 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     marginTop: 80,
+    color: "#FFFF",
+    fontWeight: "bold",
+    textShadowColor: 'rgba(0, 0, 0, 1)',
+    textShadowOffset: { width: -1, height: 0 },
+    textShadowRadius: 10,
   },
 });

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "expo-router";
 import {
   StyleSheet,
   SafeAreaView,
@@ -10,6 +11,15 @@ import {
   ActivityIndicator,
   Alert,
 } from "react-native";
+import Animated, {
+  FadeInLeft,
+  useSharedValue,
+  useAnimatedStyle,
+  withRepeat,
+  withTiming,
+  Easing,
+  withSequence,
+} from "react-native-reanimated";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { ImageBackground } from "react-native";
 export default function Example() {
@@ -20,6 +30,10 @@ export default function Example() {
   const [errors, setErrors] = useState<any>({});
   const [isLoading, setIsLoading] = useState(false);
   const backgroundImage = require("../../assets/images/background-2.jpg");
+
+  const AnimatedTouchableOpacity =
+    Animated.createAnimatedComponent(TouchableOpacity);
+
 
   const validateForm = () => {
     let valid = true;
@@ -43,9 +57,6 @@ export default function Example() {
     if (validateForm()) {
       setIsLoading(true);
       try {
-        // Perform sign-in logic, possibly using an API call
-        // Example: await signInApi(form.email, form.password);
-
         Alert.alert("Success", "You are logged in!");
       } catch (error) {
         Alert.alert("Error", "Failed to sign in");
@@ -54,102 +65,97 @@ export default function Example() {
       }
     }
   };
+
   return (
     <ImageBackground
       source={backgroundImage}
       style={styles.backgroundImage}
       resizeMode="cover"
     >
-      <SafeAreaView style={{} /*styles.flexContainer*/}>
-        <KeyboardAwareScrollView style={{} /*styles.scrollView*/}>
-          <View style={styles.container}>
-            {/* Header Section */}
-            <View style={styles.header}>
-              <Image
-                alt="App Logo"
-                resizeMode="contain"
-                style={styles.headerImg}
-                source={require("../../assets/images/app_icon.png")}
-              />
+      <KeyboardAwareScrollView style={{} /*styles.scrollView*/}>
+        <View style={styles.container}>
+          {/* Header Section */}
+          <View style={styles.header}>
+            <Image
+              alt="App Logo"
+              resizeMode="contain"
+              style={styles.headerImg}
+              source={require("../../assets/images/app_icon.png")}
+            />
 
-              <Text style={styles.title}>
-                Sign in to <Text style={{ color: "#3C8690" }}>TimeFrame</Text>
-              </Text>
+            <Text style={styles.title}>
+              Sign in to <Text style={{ color: "#3C8690" }}>TimeFrame</Text>
+            </Text>
 
-              <Text style={styles.subtitle}>
-                Get access to your portfolio and more
-              </Text>
-            </View>
-
-            {/* Form Section */}
-            <View style={styles.form}>
-              {/* Email Input */}
-              <View style={styles.input}>
-                <Text style={styles.inputLabel}>Email address</Text>
-                <TextInput
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  keyboardType="email-address"
-                  onChangeText={(email) => setForm({ ...form, email })}
-                  placeholder="john@example.com"
-                  placeholderTextColor="#6b7280"
-                  style={styles.inputControl}
-                  value={form.email}
-                />
-                {errors.email && (
-                  <Text style={styles.errorText}>{errors.email}</Text>
-                )}
-              </View>
-
-              {/* Password Input */}
-              <View style={styles.input}>
-                <Text style={styles.inputLabel}>Password</Text>
-                <TextInput
-                  autoCorrect={false}
-                  onChangeText={(password) => setForm({ ...form, password })}
-                  placeholder="********"
-                  placeholderTextColor="#6b7280"
-                  style={styles.inputControl}
-                  secureTextEntry={true}
-                  value={form.password}
-                />
-                {errors.password && (
-                  <Text style={styles.errorText}>{errors.password}</Text>
-                )}
-              </View>
-
-              {/* Sign In Button */}
-              <View style={styles.formAction}>
-                {isLoading ? (
-                  <ActivityIndicator size="large" color="#075eec" />
-                ) : (
-                  <TouchableOpacity onPress={handleSignIn}>
-                    <View style={styles.btn}>
-                      <Text style={styles.btnText}>Sign in</Text>
-                    </View>
-                  </TouchableOpacity>
-                )}
-              </View>
-
-              {/* Forgot Password Link */}
-              <Text style={styles.formLink}>Forgot password?</Text>
-            </View>
-
-            {/* Sign Up Link */}
-            <TouchableOpacity
-              onPress={() => {
-                // handle link to sign up
-              }}
-              style={{ marginTop: "auto" }}
-            >
-              <Text style={styles.formFooter}>
-                Don't have an account?{" "}
-                <Text style={{ textDecorationLine: "underline" }}>Sign up</Text>
-              </Text>
-            </TouchableOpacity>
+            <Text style={styles.subtitle}>
+              Get access to your portfolio and more
+            </Text>
           </View>
-        </KeyboardAwareScrollView>
-      </SafeAreaView>
+
+          {/* Form Section */}
+          <View style={styles.form}>
+            {/* Email Input */}
+            <View style={styles.input}>
+              <Text style={styles.inputLabel}>Email address</Text>
+              <TextInput
+                autoCapitalize="none"
+                autoCorrect={false}
+                keyboardType="email-address"
+                onChangeText={(email) => setForm({ ...form, email })}
+                placeholder="john@example.com"
+                placeholderTextColor="#6b7280"
+                style={styles.inputControl}
+                value={form.email}
+              />
+              {errors.email && (
+                <Text style={styles.errorText}>{errors.email}</Text>
+              )}
+            </View>
+
+            {/* Password Input */}
+            <View style={styles.input}>
+              <Text style={styles.inputLabel}>Password</Text>
+              <TextInput
+                autoCorrect={false}
+                onChangeText={(password) => setForm({ ...form, password })}
+                placeholder="********"
+                placeholderTextColor="#6b7280"
+                style={styles.inputControl}
+                secureTextEntry={true}
+                value={form.password}
+              />
+              {errors.password && (
+                <Text style={styles.errorText}>{errors.password}</Text>
+              )}
+            </View>
+
+            {/* Sign In Button */}
+            <View style={styles.formAction}>
+              {isLoading ? (
+                <ActivityIndicator size="large" color="#075eec" />
+              ) : (
+                <TouchableOpacity onPress={handleSignIn}>
+                  <View style={styles.btn}>
+                    <Text style={styles.btnText}>Sign in</Text>
+                  </View>
+                </TouchableOpacity>
+              )}
+            </View>
+
+            {/* Forgot Password Link */}
+            <Text style={styles.formLink}>Forgot password?</Text>
+          </View>
+          <Link href="/signup/" asChild replace>
+            <AnimatedTouchableOpacity
+              entering={FadeInLeft.duration(500).delay(600)}
+              style={styles.button}
+              onPress={() => console.log("Button Pressed")}
+            >
+              <Text style={styles.formFooter}>Dont have an account? Sign Up here.</Text>
+            </AnimatedTouchableOpacity>
+          </Link>
+        </View>
+      </KeyboardAwareScrollView>
     </ImageBackground>
   );
 }
@@ -157,8 +163,10 @@ export default function Example() {
 const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
+    position: "absolute",
     width: "100%",
-    height: "100%",
+    height: "110%",
+    objectFit: "cover",
   },
   container: {
     paddingVertical: 24,
@@ -198,7 +206,7 @@ const styles = StyleSheet.create({
   },
   formAction: {
     marginTop: 4,
-    marginBottom: 16,
+    marginBottom: 32,
   },
   formLink: {
     fontSize: 16,
@@ -212,6 +220,7 @@ const styles = StyleSheet.create({
     color: "#222",
     textAlign: "center",
     letterSpacing: 0.15,
+    marginTop: 0,
   },
   input: {
     marginBottom: 16,
@@ -221,6 +230,9 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     color: "#222",
     marginBottom: 8,
+  },
+  buttonText: {
+
   },
   inputControl: {
     height: 50,
@@ -233,6 +245,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#C9D3DB",
     borderStyle: "solid",
+  },
+  button: {
+
   },
   errorText: {
     color: "red",
