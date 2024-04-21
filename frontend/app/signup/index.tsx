@@ -223,6 +223,7 @@ const styles = StyleSheet.create({
     marginBottom: 36,
   },
   formFooter: {
+    paddingTop: 15,
     fontSize: 15,
     fontWeight: "600",
     color: "#222",
