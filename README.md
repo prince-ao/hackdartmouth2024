@@ -15,9 +15,6 @@ This project was made for HackDartmouth IX, it is for the Education track, Best 
 - **Augmented Reality**: View historical landmarks and buildings in AR mode, with information about their history and significance.
 - **Interactive Timeline**: Explore the history of a location through an interactive timeline, with photos, videos, and text.
 - **Location-Based Information**: Get information about historical sites based on your current location, with notifications and alerts.
-- **User Profiles**: Create a user profile to save your favorite locations, share your discoveries, and connect with other users.
-- **Social Sharing**: Share your discoveries and experiences with friends and family on social media platforms.
-- **Gamification**: Earn points, badges, and rewards for visiting new locations, completing challenges, and learning about history.
 
 ## Technologies Used
 
@@ -85,6 +82,12 @@ This project was made for HackDartmouth IX, it is for the Education track, Best 
 - **Website**: The website can be deployed on Vercel, following the [Next.js deployment documentation](https://nextjs.org/docs/deployment).
 - **Frontend**: The React Native app can be built and deployed to iOS and Android app stores.
 - **Backend**: Deployment instructions for the backend will vary based on the chosen infrastructure.
+
+## Anticipated Ideas
+- **User Profiles**: Create a user profile to save your favorite locations, share your discoveries, and connect with other users.
+- **Social Sharing**: Share your discoveries and experiences with friends and family on social media platforms.
+- **Gamification**: Earn points, badges, and rewards for visiting new locations, completing challenges, and learning about history.
+
 
 ## Contributing
 
