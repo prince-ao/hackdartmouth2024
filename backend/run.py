@@ -5,6 +5,9 @@ from flask_jwt_extended import create_access_token, JWTManager
 from flask_cors import CORS
 from openai import OpenAI
 from decouple import config
+from PIL import Image
+import io
+import base64
 
 
 client = OpenAI(api_key=config("OPENAI_API_KEY"))
@@ -47,11 +50,23 @@ def login():
 
     return access_token
 
+def compress_base64_image(base64_string, output_format='JPEG', quality=20):
+    image_data = base64.b64decode(base64_string)
+    image = Image.open(io.BytesIO(image_data))
+
+    img_byte_arr = io.BytesIO()
+    image.save(img_byte_arr, format=output_format, quality=quality)
+    img_byte_arr = img_byte_arr.getvalue()
+
+    return base64.b64encode(img_byte_arr).decode('utf-8')
+
 @app.post('/gen-ar')
 def gen_ar():
     body = request.get_json()
     base64_image = body['data']
     location = body['location']
+
+    base64_image = compress_base64_image(base64_image)
 
 
     response = client.chat.completions.create(
@@ -77,7 +92,7 @@ def gen_ar():
 
 @app.get('/')
 def index():
-    return "Hello, World"
+    return "Welcome to Timeframe API"
 
 
 if __name__ == "__main__":
