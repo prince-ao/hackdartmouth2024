@@ -25,10 +25,10 @@ import Animated, {
 } from "react-native-reanimated";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-const backgroundImage = require("../../assets/images/background-2.jpg"); // Ensure this path is correct
+const backgroundImage = require("../../assets/images/background-2.jpg");
 
 const AnimatedTouchableOpacity =
-Animated.createAnimatedComponent(TouchableOpacity);
+  Animated.createAnimatedComponent(TouchableOpacity);
 
 export default function SignUp() {
   const [form, setForm] = useState({
@@ -90,7 +90,7 @@ export default function SignUp() {
                 alt="App Logo"
                 resizeMode="contain"
                 style={styles.headerImg}
-                source={require("../../assets/images/app_icon.png")} // Make sure this path is correct
+                source={require("../../assets/images/app_icon.png")}
               />
 
               <Text style={styles.title}>
@@ -167,15 +167,15 @@ export default function SignUp() {
                     </View>
                   </TouchableOpacity>
                 )}
-                            <Link href="/login/" asChild replace>
-            <AnimatedTouchableOpacity
-              entering={FadeInLeft.duration(500).delay(600)}
-              style={styles.button}
-              onPress={() => console.log("Button Pressed")}
-            >
-              <Text style={styles.formFooter}>Already have an account? Login here.</Text>
-            </AnimatedTouchableOpacity>
-          </Link>
+                <Link href="/login/" asChild replace>
+                  <AnimatedTouchableOpacity
+                    entering={FadeInLeft.duration(500).delay(600)}
+                    style={styles.button}
+                    onPress={() => console.log("Button Pressed")}
+                  >
+                    <Text style={styles.formFooter}>Already have an account? Login here.</Text>
+                  </AnimatedTouchableOpacity>
+                </Link>
               </View>
             </View>
           </View>
@@ -264,7 +264,7 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
   },
   button: {
-    
+
   },
   errorText: {
     color: "red",

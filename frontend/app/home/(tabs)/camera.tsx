@@ -82,11 +82,11 @@ const styles = StyleSheet.create({
     marginBottom: 50,
     width: 150,
     height: 170,
-    borderWidth: 6,
-    borderColor: "#5D837A",
+    borderWidth: 2,
+    borderColor: "rgba(255, 255, 255, 0.7)",
     borderStyle: "dashed",
-    borderRadius: 10,
-    backgroundColor: "rgba(203, 106, 58, 0.2)",
+    borderRadius: 5,
+    backgroundColor: "rgba(255, 255, 255, 0.2)"
   },
   container: {
     flex: 1,
