@@ -27,7 +27,7 @@ import Animated, {
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import axios, { AxiosError } from "axios";
 
-const backgroundImage = require("../../assets/images/background-2.jpg"); // Ensure this path is correct
+const backgroundImage = require("../../assets/images/background-2.jpg");
 
 const AnimatedTouchableOpacity =
   Animated.createAnimatedComponent(TouchableOpacity);
@@ -79,7 +79,7 @@ export default function SignUp() {
                 alt="App Logo"
                 resizeMode="contain"
                 style={styles.headerImg}
-                source={require("../../assets/images/app_icon.png")} // Make sure this path is correct
+                source={require("../../assets/images/app_icon.png")}
               />
 
               <Text style={styles.title}>

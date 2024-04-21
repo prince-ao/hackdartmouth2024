@@ -109,14 +109,13 @@ export default function Index() {
     })
   );
 
-    return (
-      
-        <ImageBackground
+  return (
+
+    <ImageBackground
       source={backgroundImage}
       style={styles.backgroundImage}
       resizeMode="cover"
     >
-     
 
       <AnimatedImage
         style={[styles.image, animatedStyles[0]]}
@@ -155,7 +154,7 @@ export default function Index() {
               <Text style={styles.buttonText}>Sign Up</Text>
             </AnimatedTouchableOpacity>
           </Link>
-          <Link href="/home/" asChild replace>
+          <Link href="/home/(tabs)/home" asChild replace>
             <AnimatedTouchableOpacity
               entering={FadeInLeft.duration(500).delay(600)}
               style={styles.button}
@@ -209,13 +208,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#3C8690",
     borderRadius: 30,
   },
-title: {
-  fontSize: 24,
-  marginTop: 80,
-  color: "#FFFF",
-  fontWeight: "bold",
-  textShadowColor: 'rgba(0, 0, 0, 1)',
-  textShadowOffset: {width: -1, height: 0},
-  textShadowRadius: 10,
-},
+  title: {
+    fontSize: 24,
+    marginTop: 80,
+    color: "#FFFF",
+    fontWeight: "bold",
+    textShadowColor: 'rgba(0, 0, 0, 1)',
+    textShadowOffset: { width: -1, height: 0 },
+    textShadowRadius: 10,
+  },
 });
