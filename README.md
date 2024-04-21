@@ -17,7 +17,6 @@ This project was made for HackDartmouth IX, it is for the Education track, Best 
 ## Overview
 <img width="432" alt="Landing" src="https://github.com/prince-ao/hackdartmouth2024/assets/122007821/6ddac9ba-5bc5-4abf-b206-688513ab56e0">
 <img width="431" alt="SignUp" src="https://github.com/prince-ao/hackdartmouth2024/assets/122007821/9123315b-9ad7-44b4-9298-2c614e7232da">
-<img width="427" alt="SignIn" src="https://github.com/prince-ao/hackdartmouth2024/assets/122007821/8e4aae7a-d372-4802-91b3-9115e80205f3">
 
 ## Getting Started
 
