@@ -9,6 +9,7 @@ import {
   Button,
   Image,
   ActivityIndicator,
+  ScrollView,
 } from "react-native";
 import { Camera } from "expo-camera";
 import * as Location from "expo-location";
@@ -170,7 +171,10 @@ export default function CameraCP() {
       <Picker
         style={styles.picker}
         selectedValue={selectedLanguage}
-        onValueChange={(itemValue: React.SetStateAction<string>, itemIndex: number | string) => {
+        onValueChange={(
+          itemValue: React.SetStateAction<string>,
+          itemIndex: number | string
+        ) => {
           setSelectedLanguage(itemValue);
         }}
       >
@@ -200,7 +204,7 @@ export default function CameraCP() {
           setModalVisible(!modalVisible);
         }}
       >
-        <View style={styles.centeredView}>
+        <ScrollView style={styles.centeredView}>
           <View style={styles.modalView}>
             <Text style={styles.modalText}>{responseText}</Text>
             <Button
@@ -208,7 +212,7 @@ export default function CameraCP() {
               onPress={() => setModalVisible(!modalVisible)}
             />
           </View>
-        </View>
+        </ScrollView>
       </Modal>
     </Camera>
   );
